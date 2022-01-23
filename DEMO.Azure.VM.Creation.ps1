@@ -11,7 +11,7 @@ $splat = @{
     Image = 'Win2019Datacenter'
     Size = 'Standard_B1ms'
     Credential = Get-Credential
-    OpenPorts = '22'
+    OpenPorts = '3389'
 }
 
 New-AzVM @splat
