@@ -1,6 +1,6 @@
 # connect to Azure sub
 Connect-AzAccount
-
+$cred = Get-Credential
 # create resource group
 New-AzResourceGroup -Name "Demo_Resource_Group" -Location 'eastus2'
 
@@ -12,7 +12,7 @@ for ($i=1; $i -le 3; $i++) {
         Name = 'DEMO-VM-0' + $i
         Image = 'Win2019Datacenter'
         Size = 'Standard_B1ms'
-        Credential = Get-Credential
+        Credential = $cred
         OpenPorts = '3389'
     }
 }
