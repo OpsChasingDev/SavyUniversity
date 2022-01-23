@@ -1,3 +1,7 @@
+Param (
+    [int]$Number = 1
+)
+
 # connect to Azure sub
 Connect-AzAccount
 
@@ -8,7 +12,7 @@ $cred = Get-Credential
 New-AzResourceGroup -Name "Demo_Resource_Group" -Location 'eastus2'
 
 # create virtual machines
-for ($i=1; $i -le 3; $i++) {
+for ($i=1; $i -le $Number; $i++) {
     $splat = @{
         ResourceGroupName = 'Demo_Resource_Group'
         Name = 'DEMO-VM-0' + $i
