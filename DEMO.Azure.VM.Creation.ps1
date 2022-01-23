@@ -15,6 +15,7 @@ for ($i=1; $i -le 3; $i++) {
         Credential = $cred
         OpenPorts = '3389'
     }
+    
+    New-AzVM @splat
 }
 
-New-AzVM @splat
