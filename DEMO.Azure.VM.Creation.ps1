@@ -1,3 +1,4 @@
+# creates VMs in the 'demo' Resource Group
 Param (
     [Parameter(Mandatory)]
     [int]$VMNumber
