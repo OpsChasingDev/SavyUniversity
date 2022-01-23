@@ -1,11 +1,13 @@
 # connect to Azure sub
 Connect-AzAccount
+
+# store credentials for VMs
 $cred = Get-Credential
+
 # create resource group
 New-AzResourceGroup -Name "Demo_Resource_Group" -Location 'eastus2'
 
 # create virtual machines
-
 for ($i=1; $i -le 3; $i++) {
     $splat = @{
         ResourceGroupName = 'Demo_Resource_Group'
@@ -15,7 +17,5 @@ for ($i=1; $i -le 3; $i++) {
         Credential = $cred
         OpenPorts = '3389'
     }
-    
     New-AzVM @splat
 }
-
