@@ -1,5 +1,6 @@
 Param (
-    [int]$Number = 1
+    [Parameter(Mandatory)]
+    [int]$Number
 )
 
 # connect to Azure sub
