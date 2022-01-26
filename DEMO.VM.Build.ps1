@@ -35,4 +35,4 @@ $VM = Set-AzVMOperatingSystem -VM $VM -Windows -ComputerName $Name -Credential $
 $VM = Add-AzVMNetworkInterface -VM $VM -Id $NIC.Id
 $VM = Set-AzVMSourceImage -VM $VM -PublisherName 'MicrosoftWindowsServer' -Offer 'WindowsServer' -Skus '2019-Datacenter-Core' -Version latest
 
-New-AzVM -VM $VM -ResourceGroupName 'demo' -Credential (Get-Credential)
+New-AzVM -VM $VM -ResourceGroupName $ResourceGroupName -Location $Location -Verbose
