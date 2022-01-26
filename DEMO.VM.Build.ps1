@@ -26,7 +26,7 @@ $NIC = New-AzNetworkInterface -Name $NICName -ResourceGroupName $ResourceGroupNa
 
 # construct VM local credentials
 $LocalAdmin = "RStapleton"
-$LocalPass = ConvertTo-SecureString "P@ssword123" -AsPlainText -Force
+$LocalPass = ConvertTo-SecureString "SomethingB3tt3r!@#" -AsPlainText -Force
 $Credential = New-Object -TypeName System.Management.Automation.PSCredential ($LocalAdmin,$LocalPass)
 
 # construct VM object
