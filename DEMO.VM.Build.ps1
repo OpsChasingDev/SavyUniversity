@@ -9,6 +9,7 @@ $Size = "Standard_B1ms"
 
 # construct VM networking
 $NetworkName = "default-network-name"
+$NICName = "default-NIC-name"
 $SubnetName = "default-test"
 $SubnetAddress = '192.168.0.0/24'
 $VirtualNetworkAddressPrefix = '192.168.0.0/16'
