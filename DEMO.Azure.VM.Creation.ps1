@@ -14,7 +14,6 @@ $cred = Get-Credential
 for ($i=1; $i -le $VMNumber; $i++) {
     $splat = @{
         ResourceGroupName = 'Demo'
-        # VirtualNetworkName = 'demo-vnet'
         Name = 'DEMO-VM-' + $i
         Image = 'Win2019Datacenter'
         Size = 'Standard_B1ms'
