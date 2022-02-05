@@ -11,7 +11,7 @@ $Name = $VM.Name
 
 if ($PowerState -eq "VM running") {
     Write-Host "stopping vm $Name"
-    Stop-AzVM -Name $Name -WhatIf
+    Stop-AzVM -Name $Name -ResourceGroupName 'DEMO'
 }
 else {
     Write-Host "it didn't work"
