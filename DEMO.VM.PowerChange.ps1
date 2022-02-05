@@ -1,4 +1,6 @@
 # this script assumes you are already connected to your Azure account
+# takes an Azure resource group name and either powers on or powers off ALL the VMs in that resource group
+# prompted user input controls the power action
 
 param (
     [Parameter(Mandatory)]

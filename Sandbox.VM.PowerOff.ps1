@@ -1,4 +1,6 @@
 # this script assumes you are already connected to your Azure account
+# powers off a specified VM in Azure if it is found to be running
+# only applies to the Sandbox resource group
 
 param (
     [Parameter(Mandatory)]
