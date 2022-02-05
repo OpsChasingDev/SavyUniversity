@@ -1,19 +1,24 @@
 # this script assumes you are already connected to your Azure account
 
-$Read = Read-Host "Type 'ON' to power on all DEMO VMs or 'OFF' to power off all DEMO VMs."
+param (
+    [Parameter(Mandatory)]
+    [string]$ResourceGroup
+)
+
+$Read = Read-Host "Modifying power state of ALL VMs for the Resource Group: $ResourceGroup.  Type 'ON' to power on or 'OFF' to power off."
 
 if ($Read -eq 'OFF'){
-    $AllVM = Get-AzResourceGroup 'demo' | Get-AzVM
+    $AllVM = Get-AzResourceGroup $ResourceGroup | Get-AzVM
     foreach ($vm in $AllVM){
         $VMName = $vm.Name
-        Stop-AzVM -Name $VMName -ResourceGroupName 'demo' -Force -AsJob
+        Stop-AzVM -Name $VMName -ResourceGroupName $ResourceGroup -Force -AsJob
     }
 }
 elseif ($Read -eq 'ON'){
-    $AllVM = Get-AzResourceGroup 'demo' | Get-AzVM
+    $AllVM = Get-AzResourceGroup $ResourceGroup | Get-AzVM
     foreach ($vm in $AllVM){
         $VMName = $vm.Name
-        Start-AzVM -Name $VMName -ResourceGroupName 'demo' -AsJob
+        Start-AzVM -Name $VMName -ResourceGroupName $ResourceGroup -AsJob
     }
 }
 else {
