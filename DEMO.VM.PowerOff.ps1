@@ -1,8 +1,3 @@
-param (
-    [Parameter(Mandatory)]
-    [string]$VMName
-)
-
 Connect-AzAccount
 
 $AllVM = Get-AzResourceGroup 'demo' | Get-AzVM
