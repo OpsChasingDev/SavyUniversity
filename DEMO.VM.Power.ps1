@@ -5,8 +5,14 @@ param (
     [string]$VMName
 )
 
-$PowerState = (Get-AzVM -Name $VMName -Status).PowerState
+$VM = Get-AzVM -Name $VMName -Status
+$PowerState = $VM.$PowerState
+$Name = $VM.Name
 
 if ($PowerState -eq "VM running") {
-    Write-Host 'the vm is running'
+    Write-Host "stopping vm $Name"
+    Stop-AzVM -Name $Name -WhatIf
+}
+else {
+    Write-Host "it didn't work"
 }
