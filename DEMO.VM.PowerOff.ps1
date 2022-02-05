@@ -1,4 +1,4 @@
-Connect-AzAccount
+# this script assumes you are already connected to your Azure account
 
 $AllVM = Get-AzResourceGroup 'demo' | Get-AzVM
 
