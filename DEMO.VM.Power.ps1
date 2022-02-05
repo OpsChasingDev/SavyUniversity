@@ -5,4 +5,8 @@ param (
     [string]$VMName
 )
 
-Get-AzVM -Name $VMName -Status | Select-Object PowerState
+$PowerState = (Get-AzVM -Name $VMName -Status).PowerState
+
+if ($PowerState -eq "VM running") {
+    Write-Host 'the vm is running'
+}
