@@ -13,7 +13,7 @@ elseif ($Read -eq 'ON'){
     $AllVM = Get-AzResourceGroup 'demo' | Get-AzVM
     foreach ($vm in $AllVM){
         $VMName = $vm.Name
-        Start-AzVM -Name $VMName -ResourceGroupName 'demo' -Force -AsJob
+        Start-AzVM -Name $VMName -ResourceGroupName 'demo' -AsJob
     }
 }
 else {
