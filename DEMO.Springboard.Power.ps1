@@ -1,3 +1,7 @@
-# Connect-AzAccount
+# this script assumes you are already connected to your Azure account
 
-Get-AzVM -Name Springboard -Status | Select-Object PowerState
+param (
+    [string]$VMName
+)
+
+Get-AzVM -Name $VMName -Status | Select-Object PowerState
