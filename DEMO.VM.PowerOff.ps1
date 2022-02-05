@@ -5,7 +5,12 @@ param (
 
 Connect-AzAccount
 
-Get-AzResourceGroup | Get-AzVM
+$AllVM = Get-AzResourceGroup 'demo' | Get-AzVM
+
+foreach ($vm in $AllVM){
+    $VMName = $vm.Name
+    Stop-AzVM -Name $VMName -ResourceGroupName 'demo' -Force
+}
 
 $VM = Get-AzVM -Name $VMName -Status
 $PowerState = $VM.PowerState
