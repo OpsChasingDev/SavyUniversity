@@ -6,7 +6,7 @@ param (
 )
 
 $VM = Get-AzVM -Name $VMName -Status
-$PowerState = $VM.$PowerState
+$PowerState = $VM.PowerState
 $Name = $VM.Name
 
 if ($PowerState -eq "VM running") {
