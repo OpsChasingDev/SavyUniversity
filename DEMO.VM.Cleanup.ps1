@@ -1,4 +1,5 @@
 # removes all non-vnet resources from the DEMO resourcegroup
+# time for 3 VMs: ~6 minutes
 
 $Read = Read-Host "Do you want to remove all non-vnet resources in the Resource Group 'DEMO'?  Type 'yes' to confirm."
 

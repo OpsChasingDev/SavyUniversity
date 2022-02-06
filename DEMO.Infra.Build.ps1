@@ -1,5 +1,6 @@
 # uses a series of constructions to generate attributes of a virtual machine, its virtual network, and its credentials
 # the attributes are stored together in a VMConfig and then is passed to the VM creation at the end
+# time for 3 VMs: ~3.5 minutes
 
 param (
     [Parameter(Mandatory)]
