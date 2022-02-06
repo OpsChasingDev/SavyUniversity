@@ -25,15 +25,19 @@ $VirtualNetwork = New-AzVirtualNetwork @VirutalNetworkSplat
 #$Name = "DEMO-VM-1"
 #$Size = "Standard_B1ms"
 $NICName = "DEMO-VM-1_NIC"
-$SubnetId = Get-AzVirtualNetwork | Where-Object {$_.Subnets.Name -eq "DEMO_Subnet"} | Select-Object Id
+
+$SubnetId = Get-AzVirtualNetwork -Name 'DEMO_VNET'
+$SubnetId = $SubnetId.Subnets.Id
+
 $NICSplat = @{
     Name = $NICName
     ResourceGroupName = $ResourceGroupName
     Location = $Location
-    SubnetId = ''
+    SubnetId = $SubnetId
 }
+New-AzNetworkInterface @NICSplat
 
-$NIC = New-AzNetworkInterface -Name $NICName -ResourceGroupName $ResourceGroupName -Location $Location -SubnetId $SubnetId
+# $NIC = New-AzNetworkInterface -Name $NICName -ResourceGroupName $ResourceGroupName -Location $Location -SubnetId $SubnetId
 
 <#
 # construct VM local credentials
