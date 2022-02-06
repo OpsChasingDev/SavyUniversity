@@ -18,6 +18,7 @@ $VerbosePreference = 'Continue'
 if ($Read -eq "yes"){
 
     # virtual machine removal
+    Write-Verbose "Removing virtual machines..."
     $VirtualMachine = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Compute/virtualMachines"}
     foreach ($m in $VirtualMachine) {
         $m | Remove-AzResource -Force -AsJob
@@ -30,6 +31,7 @@ if ($Read -eq "yes"){
     Write-Verbose "All virtual machines removed."
 
     # virtual disk removal
+    Write-Verbose "Removing virtual disks..."
     $VirtualDisk = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Compute/disks"}
     foreach ($d in $VirtualDisk) {
         $d | Remove-AzResource -Force -AsJob
@@ -42,6 +44,7 @@ if ($Read -eq "yes"){
     Write-Verbose "All virtual disks removed."
 
     # virtual network interface removal
+    Write-Verbose "Removing virtual network interfaces..."
     $VirtualNetworkInterface = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Network/networkInterfaces"}
     foreach ($n in $VirtualNetworkInterface) {
         $n | Remove-AzResource -Force -AsJob
