@@ -1,27 +1,25 @@
 # uses a series of constructions to generate attributes of a virtual machine, its virtual network, and its credentials
 # the attributes are stored together in a VMConfig and then is passed to the VM creation at the end
 
-function New-DEMONetwork {
-    # identify resource group and region
-    $ResourceGroupName = "DEMO"
-    $Location = "eastus2"
+# identify resource group and region
+$ResourceGroupName = "DEMO"
+$Location = "eastus2"
 
-    # construct virtual network
-    $NetworkName = "DEMO_VNET"
-    $SubnetName = "DEMO_Subnet"
-    $SubnetAddress = '192.168.0.0/24'
-    $VirtualNetworkAddressPrefix = '192.168.0.0/16'
-    $Subnet = New-AzVirtualNetworkSubnetConfig -Name $SubnetName -AddressPrefix $SubnetAddress
-    $VirutalNetworkSplat = @{
-        Name = $NetworkName
-        ResourceGroupName = $ResourceGroupName
-        Location = $Location
-        AddressPrefix = $VirtualNetworkAddressPrefix
-        Subnet = $Subnet
-    }
-    $VirtualNetwork = New-AzVirtualNetwork @VirutalNetworkSplat
-    $SubnetId = $VirtualNetwork.Subnets.Id
+# construct virtual network
+$NetworkName = "DEMO_VNET"
+$SubnetName = "DEMO_Subnet"
+$SubnetAddress = '192.168.0.0/24'
+$VirtualNetworkAddressPrefix = '192.168.0.0/16'
+$Subnet = New-AzVirtualNetworkSubnetConfig -Name $SubnetName -AddressPrefix $SubnetAddress
+$VirutalNetworkSplat = @{
+    Name = $NetworkName
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    AddressPrefix = $VirtualNetworkAddressPrefix
+    Subnet = $Subnet
 }
+$VirtualNetwork = New-AzVirtualNetwork @VirutalNetworkSplat
+$SubnetId = $VirtualNetwork.Subnets.Id
 
 # construct network adapter
 $NICName = "DEMO-VM-1_NIC"
