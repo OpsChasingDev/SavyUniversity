@@ -7,6 +7,8 @@ param (
     [int]$VMNumber
 )
 
+$VerbosePreference = 'Continue'
+
 # identify resource group and region
 $ResourceGroupName = "DEMO"
 $Location = "eastus2"
@@ -56,3 +58,10 @@ for ($v = 1; $v -le $VMNumber; $v++) {
     # make VM
     New-AzVM -VM $VM -ResourceGroupName $ResourceGroupName -Location $Location -AsJob
 }
+
+do {
+    $VMBuild = Get-Job | Where-Object {$_.State -eq 'Running'}
+    Write-Verbose "Working..."
+    Start-Sleep -Seconds 10
+} while ($VMBuild)
+Write-Verbose "Construction completed."
