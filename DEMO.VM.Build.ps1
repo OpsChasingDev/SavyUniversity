@@ -8,9 +8,9 @@ $Location = "eastus2"
 $Size = "Standard_B1ms"
 
 # construct VM networking
-$NetworkName = "default-network-name"
-$NICName = "default-NIC-name"
-$SubnetName = "default-test"
+$NetworkName = "DEMO_VNET"
+$NICName = "DEMO-VM-1_NIC"
+$SubnetName = "DEMO_Subnet"
 $SubnetAddress = '192.168.0.0/24'
 $VirtualNetworkAddressPrefix = '192.168.0.0/16'
 $Subnet = New-AzVirtualNetworkSubnetConfig -Name $SubnetName -AddressPrefix $SubnetAddress
