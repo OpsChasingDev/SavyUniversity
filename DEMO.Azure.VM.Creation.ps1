@@ -1,4 +1,4 @@
-# creates VMs in the 'demo' Resource Group
+# creates fairly generic VMs in the 'demo' Resource Group
 
 Param (
     [Parameter(Mandatory)]
