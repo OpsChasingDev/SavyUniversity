@@ -1,15 +1,10 @@
 # uses a series of constructions to generate attributes of a virtual machine, its virtual network, and its credentials
 # the attributes are stored together in a VMConfig and then is passed to the VM creation at the end
 
-# construct VM attributes
-$Name = "DEMO-VM-1"
-$ResourceGroupName = "demo"
+# construct virtual network
+$ResourceGroupName = "DEMO"
 $Location = "eastus2"
-$Size = "Standard_B1ms"
-
-# construct VM networking
 $NetworkName = "DEMO_VNET"
-$NICName = "DEMO-VM-1_NIC"
 $SubnetName = "DEMO_Subnet"
 $SubnetAddress = '192.168.0.0/24'
 $VirtualNetworkAddressPrefix = '192.168.0.0/16'
@@ -22,6 +17,12 @@ $VirutalNetworkSplat = @{
     Subnet = $Subnet
 }
 $VirtualNetwork = New-AzVirtualNetwork @VirutalNetworkSplat
+
+<#
+# construct VM attributes
+$Name = "DEMO-VM-1"
+$Size = "Standard_B1ms"
+$NICName = "DEMO-VM-1_NIC"
 $NIC = New-AzNetworkInterface -Name $NICName -ResourceGroupName $ResourceGroupName -Location $Location -SubnetId $VirtualNetwork.Subnets[0].Id
 
 # construct VM local credentials
@@ -36,3 +37,4 @@ $VM = Add-AzVMNetworkInterface -VM $VM -Id $NIC.Id
 $VM = Set-AzVMSourceImage -VM $VM -PublisherName 'MicrosoftWindowsServer' -Offer 'WindowsServer' -Skus '2019-Datacenter-Core' -Version latest
 
 New-AzVM -VM $VM -ResourceGroupName $ResourceGroupName -Location $Location -Verbose
+#>
