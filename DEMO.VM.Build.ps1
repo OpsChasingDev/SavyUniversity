@@ -2,10 +2,11 @@
 # the attributes are stored together in a VMConfig and then is passed to the VM creation at the end
 
 
-# construct virtual network
+# identify resource group and region
 $ResourceGroupName = "DEMO"
 $Location = "eastus2"
 
+# construct virtual network
 $NetworkName = "DEMO_VNET"
 $SubnetName = "DEMO_Subnet"
 $SubnetAddress = '192.168.0.0/24'
@@ -20,14 +21,14 @@ $VirutalNetworkSplat = @{
 }
 $VirtualNetwork = New-AzVirtualNetwork @VirutalNetworkSplat
 
-
 # construct VM attributes
-#$Name = "DEMO-VM-1"
-#$Size = "Standard_B1ms"
+$Name = "DEMO-VM-1"
+$Size = "Standard_B1ms"
 $NICName = "DEMO-VM-1_NIC"
 
-$SubnetId = Get-AzVirtualNetwork -Name 'DEMO_VNET'
-$SubnetId = $SubnetId.Subnets.Id
+#$SubnetId = Get-AzVirtualNetwork -Name 'DEMO_VNET'
+#$SubnetId = $SubnetId.Subnets.Id
+$SubnetId = $VirtualNetwork.Subnets.Id
 
 $NICSplat = @{
     Name = $NICName
@@ -35,11 +36,8 @@ $NICSplat = @{
     Location = $Location
     SubnetId = $SubnetId
 }
-New-AzNetworkInterface @NICSplat
+$NIC = New-AzNetworkInterface @NICSplat
 
-# $NIC = New-AzNetworkInterface -Name $NICName -ResourceGroupName $ResourceGroupName -Location $Location -SubnetId $SubnetId
-
-<#
 # construct VM local credentials
 $LocalAdmin = "RStapleton"
 $LocalPass = ConvertTo-SecureString "SomethingB3tt3r!@#" -AsPlainText -Force
@@ -52,4 +50,3 @@ $VM = Add-AzVMNetworkInterface -VM $VM -Id $NIC.Id
 $VM = Set-AzVMSourceImage -VM $VM -PublisherName 'MicrosoftWindowsServer' -Offer 'WindowsServer' -Skus '2019-Datacenter-Core' -Version latest
 
 New-AzVM -VM $VM -ResourceGroupName $ResourceGroupName -Location $Location -Verbose
-#>
