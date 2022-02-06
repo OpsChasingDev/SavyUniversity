@@ -1,9 +1,11 @@
 # uses a series of constructions to generate attributes of a virtual machine, its virtual network, and its credentials
 # the attributes are stored together in a VMConfig and then is passed to the VM creation at the end
 
+
 # construct virtual network
 $ResourceGroupName = "DEMO"
 $Location = "eastus2"
+
 $NetworkName = "DEMO_VNET"
 $SubnetName = "DEMO_Subnet"
 $SubnetAddress = '192.168.0.0/24'
@@ -18,13 +20,22 @@ $VirutalNetworkSplat = @{
 }
 $VirtualNetwork = New-AzVirtualNetwork @VirutalNetworkSplat
 
-<#
-# construct VM attributes
-$Name = "DEMO-VM-1"
-$Size = "Standard_B1ms"
-$NICName = "DEMO-VM-1_NIC"
-$NIC = New-AzNetworkInterface -Name $NICName -ResourceGroupName $ResourceGroupName -Location $Location -SubnetId $VirtualNetwork.Subnets[0].Id
 
+# construct VM attributes
+#$Name = "DEMO-VM-1"
+#$Size = "Standard_B1ms"
+$NICName = "DEMO-VM-1_NIC"
+$SubnetId = Get-AzVirtualNetwork | Where-Object {$_.Subnets.Name -eq "DEMO_Subnet"} | Select-Object Id
+$NICSplat = @{
+    Name = $NICName
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+    SubnetId = ''
+}
+
+$NIC = New-AzNetworkInterface -Name $NICName -ResourceGroupName $ResourceGroupName -Location $Location -SubnetId $SubnetId
+
+<#
 # construct VM local credentials
 $LocalAdmin = "RStapleton"
 $LocalPass = ConvertTo-SecureString "SomethingB3tt3r!@#" -AsPlainText -Force
