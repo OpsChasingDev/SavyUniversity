@@ -15,16 +15,42 @@ if($Read -eq "yes") {
 # break
 
 if ($Read -eq "yes"){
-    $VirtualMachines = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Compute/virtualMachines"}
-    foreach ($m in $VirtualMachines) {
+
+    # virtual machine removal
+    $VirtualMachine = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Compute/virtualMachines"}
+    foreach ($m in $VirtualMachine) {
         $m | Remove-AzResource -Force -AsJob
     }
     do {
-        $Job = Get-Job | Where-Object {$_.State -eq 'Running'}
+        $JobVirtualMachine = Get-Job | Where-Object {$_.State -eq 'Running'}
         Write-Verbose "Working..."
         Start-Sleep -Seconds 5
-    } while ($Job)
+    } while ($JobVirtualMachine)
     Write-Verbose "All virtual machines removed."
+
+    # virtual disk removal
+    $VirtualDisk = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Compute/disks"}
+    foreach ($d in $VirtualDisk) {
+        $d | Remove-AzResource -Force -AsJob
+    }
+    do {
+        $JobVirtualDisk = Get-Job | Where-Object {$_.State -eq 'Running'}
+        Write-Verbose "Working..."
+        Start-Sleep -Seconds 5
+    } while ($JobVirtualDisk)
+    Write-Verbose "All virtual disks removed."
+
+    # virtual network interface removal
+    $VirtualNetworkInterface = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Network/networkInterfaces"}
+    foreach ($n in $VirtualNetworkInterface) {
+        $n | Remove-AzResource -Force -AsJob
+    }
+    do {
+        $JobVirtualNetworkInterface = Get-Job | Where-Object {$_.State -eq 'Running'}
+        Write-Verbose "Working..."
+        Start-Sleep -Seconds 5
+    } while ($JobVirtualNetworkInterface)
+    Write-Verbose "All virtual network interfaces removed."
 }
 
 
