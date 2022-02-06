@@ -13,8 +13,6 @@ if($Read -eq "yes") {
 }
 #>
 
-# break
-
 $VerbosePreference = 'Continue'
 
 if ($Read -eq "yes"){
@@ -56,15 +54,11 @@ if ($Read -eq "yes"){
     Write-Verbose "All virtual network interfaces removed."
 }
 
-
-<#
-Microsoft.Network/networkInterfaces
-Microsoft.Compute/virtualMachines
-Microsoft.Compute/disks
-
-Get-Job | where {$_.State -eq 'running'}
-
-Members:
-Id
-State (Running, Completed)
-#>
+$JobRemove = Read-Host "Do you want to clean up the completed jobs? [yes, no]"
+if ($JobRemove -eq 'yes') {
+    Get-Job | Where-Object {$_.State -eq 'Completed'} | Remove-Job -Force
+    Write-Verbose "Completed jobs removed."
+}
+else {
+    Write-Verbose "Completed jobs untouched."
+}

@@ -12,6 +12,7 @@ $VerbosePreference = 'Continue'
 # identify resource group and region
 $ResourceGroupName = "DEMO"
 $Location = "eastus2"
+Write-Verbose "Operating in the Resource Group called $ResourceGroupName in the region $Location."
 
 # construct virtual network
 $NetworkName = "DEMO_VNET"
@@ -28,9 +29,11 @@ $VirutalNetworkSplat = @{
 }
 $VirtualNetwork = New-AzVirtualNetwork @VirutalNetworkSplat
 $SubnetId = $VirtualNetwork.Subnets.Id
+Write-Verbose "Created virtual network $NetworkName."
 
-# construct network adapter
+# VM construction
 for ($v = 1; $v -le $VMNumber; $v++) {
+    # construct network adapter
     $NICName = "DEMO-VM-" + $v + "_NIC"
     $NICSplat = @{
         Name = $NICName
@@ -60,8 +63,8 @@ for ($v = 1; $v -le $VMNumber; $v++) {
 }
 
 do {
-    $VMBuild = Get-Job | Where-Object {$_.State -eq 'Running'}
+    $JobVMBuild = Get-Job | Where-Object {$_.State -eq 'Running'}
     Write-Verbose "Working..."
     Start-Sleep -Seconds 10
-} while ($VMBuild)
+} while ($JobVMBuild)
 Write-Verbose "Construction completed."
