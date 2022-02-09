@@ -14,6 +14,8 @@ $ResourceGroupName = "DEMO"
 $Location = "eastus2"
 Write-Verbose "Operating in the Resource Group called $ResourceGroupName in the region $Location."
 
+# identify the subnet to use on the existing virtual network
+$VirtualNetwork = Get-AzVirtualNetwork -Name "DEMO_VNET"
 $SubnetId = $VirtualNetwork.Subnets.Id
 
 # VM construction
