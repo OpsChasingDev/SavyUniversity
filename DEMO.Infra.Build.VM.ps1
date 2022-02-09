@@ -14,22 +14,7 @@ $ResourceGroupName = "DEMO"
 $Location = "eastus2"
 Write-Verbose "Operating in the Resource Group called $ResourceGroupName in the region $Location."
 
-# construct virtual network
-$NetworkName = "DEMO_VNET"
-$SubnetName = "DEMO_Subnet"
-$SubnetAddress = '192.168.0.0/24'
-$VirtualNetworkAddressPrefix = '192.168.0.0/16'
-$Subnet = New-AzVirtualNetworkSubnetConfig -Name $SubnetName -AddressPrefix $SubnetAddress
-$VirutalNetworkSplat = @{
-    Name = $NetworkName
-    ResourceGroupName = $ResourceGroupName
-    Location = $Location
-    AddressPrefix = $VirtualNetworkAddressPrefix
-    Subnet = $Subnet
-}
-$VirtualNetwork = New-AzVirtualNetwork @VirutalNetworkSplat
 $SubnetId = $VirtualNetwork.Subnets.Id
-Write-Verbose "Created virtual network $NetworkName."
 
 # VM construction
 for ($v = 1; $v -le $VMNumber; $v++) {
