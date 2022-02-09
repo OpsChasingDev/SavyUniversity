@@ -1,3 +1,5 @@
+# code responsible for creating the virtual network in the DEMO resource group
+
 # identify resource group and region
 $ResourceGroupName = "DEMO"
 $Location = "eastus2"
