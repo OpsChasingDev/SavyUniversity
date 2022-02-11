@@ -1,1 +1,1 @@
-DEMO.Infra.Build.Peer.ps1
+$VNET_Demo = Get-AzVirtualNetwork -ResourceGroupName 'demo'
