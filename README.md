@@ -6,4 +6,4 @@ The purpose of this repository is to document and collaborate on lab-like activi
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
 Next objectives:
-- modify VM build so new VMs have 3389 open
+- modify VM build so new VMs have TPC 3389 and 5985 open
