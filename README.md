@@ -6,4 +6,4 @@ The purpose of this repository is to document and collaborate on lab-like activi
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
 Next objectives:
-- modify the peering between Sandbox and DEMO resource groups to allow ICMP traffic
+- modify VM build so new VMs have 3389 open
