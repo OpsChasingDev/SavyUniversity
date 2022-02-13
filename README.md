@@ -12,4 +12,4 @@ Next objectives:
 - use the below on Springboard (additional values needed for other VMs created in DEMO):
 - Set-Item WSMan:\localhost\Client\TrustedHosts -Value 192.168.0.4
 - use the below on each target machine in DEMO:
-- Set-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC" -RemoteAddress Any
+- Set-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC" -RemoteAddress 10.0.0.0/24
