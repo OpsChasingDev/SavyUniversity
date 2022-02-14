@@ -9,7 +9,7 @@ None of the information here will violate the privacy or jeopardize the security
 
 Next objectives:
 - modify VM build so new VMs are contactable by 5985
-- use the below on Springboard (additional values needed for other VMs created in DEMO):
-- Set-Item WSMan:\localhost\Client\TrustedHosts -Value 192.168.0.4
+- use the below on Springboard:
+- Set-Item WSMan:\localhost\Client\TrustedHosts -Value *
 - use the below on each target machine in DEMO:
-- Set-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC" -RemoteAddress 10.0.0.0/24
+- Set-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC" -RemoteAddress 10.0.0.5
