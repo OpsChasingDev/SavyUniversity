@@ -8,8 +8,7 @@ Current endeavor involves continuously maturing the ability to create re-usable 
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
 Next objectives:
-- modify VM build so new VMs are contactable by 5985
-- use the below on Springboard:
-- Set-Item WSMan:\localhost\Client\TrustedHosts -Value *
-- use the below on each target machine in DEMO:
-- Set-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC" -RemoteAddress 10.0.0.5
+- install web services on the DMEO VMs using powershell remoting
+- get rudimentary web content up on the VMs and be able to browse it from Sandbox
+- get a public IP address for the DEMO resource group
+- get a load balancer in place for the DEMO resource group

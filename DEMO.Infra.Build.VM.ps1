@@ -1,6 +1,14 @@
 # uses a series of constructions to generate attributes of a virtual machine, its virtual network, and its credentials
 # the attributes are stored together in a VMConfig and then is passed to the VM creation at the end
 # time: 3-4 minutes
+<#
+For enabling remote powershell commands on the newly created VMs (running Server 2022 Core), run the below on each VM:
+    Set-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC" -RemoteAddress 10.0.0.5
+    (the -RemoteAddress will be the IP address of whatever machine you wish to access the created VMs from)
+You must also run the below command once on the machine from which you initiate your PS remoting:
+    Set-Item WSMan:\localhost\Client\TrustedHosts -Value *
+Specifying credentials with your PS remoting will be necessary in order to establish connections
+#>
 
 param (
     [Parameter(Mandatory)]
