@@ -18,5 +18,7 @@ Invoke-Command $Collection -Credential $cred {
 }
 
 # copy custom web image
-$Session = New-PSSession -ComputerName 192.168.0.4 -Credential $cred
-Copy-Item -Path 'C:\Root\hello.png' -ToSession $Session -Destination 'C:\inetpub\wwwroot\'
+$Session = New-PSSession -ComputerName $Collection -Credential $cred
+foreach ($s in $Session) {
+    Copy-Item -Path 'C:\Root\hello.png' -ToSession $s -Destination 'C:\inetpub\wwwroot\iisstart.png'
+}
