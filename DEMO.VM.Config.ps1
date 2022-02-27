@@ -16,3 +16,7 @@ for ($i = 0; $i -lt $VMCount; $i++) {
 Invoke-Command $Collection -Credential $cred {
     Install-WindowsFeature 'Web-Server' -Restart -IncludeManagementTools
 }
+
+# copy custom web image
+$Session = New-PSSession -ComputerName 192.168.0.4 -Credential $cred
+Copy-Item -Path 'C:\Root\hello.png' -ToSession $Session -Destination 'C:\inetpub\wwwroot\'
