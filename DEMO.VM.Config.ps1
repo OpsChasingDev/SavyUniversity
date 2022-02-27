@@ -2,6 +2,8 @@
 Script to run against all remote VMs once powershell remoting is enabled in order to configure the services hosted on the VMs
 #>
 
+Connect-AzAccount
+
 $cred = Get-Credential
 
 $VMCount = (Get-AzVM -ResourceGroupName "DEMO").Count
