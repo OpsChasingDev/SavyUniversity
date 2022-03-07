@@ -1,0 +1,1 @@
+DEMO.Infra.Build.AvailabilitySet.ps1
