@@ -20,6 +20,7 @@ $VerbosePreference = 'Continue'
 # identify resource group and region
 $ResourceGroupName = "DEMO"
 $Location = "eastus2"
+$AvailabilitySet = Get-AzAvailabilitySet -Name "DEMO_AvailabilitySet" -ResourceGroupName $ResourceGroupName
 Write-Verbose "Operating in the Resource Group called $ResourceGroupName in the region $Location."
 
 # identify the subnet to use on the existing virtual network
@@ -48,7 +49,7 @@ for ($v = 1; $v -le $VMNumber; $v++) {
     $Size = "Standard_B1ms"
 
     # construct VM object
-    $VM = New-AzVMConfig -VMName $Name -VMSize $Size
+    $VM = New-AzVMConfig -VMName $Name -VMSize $Size -AvailabilitySetId $AvailabilitySet.Id
     $VM = Set-AzVMOperatingSystem -VM $VM -Windows -ComputerName $Name -Credential $Credential -ProvisionVMAgent -EnableAutoUpdate
     $VM = Add-AzVMNetworkInterface -VM $VM -Id $NIC.Id
     $VM = Set-AzVMSourceImage -VM $VM -PublisherName 'MicrosoftWindowsServer' -Offer 'WindowsServer' -Skus '2019-Datacenter-Core' -Version latest
