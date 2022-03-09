@@ -16,5 +16,8 @@ $PublicIP = New-AzPublicIpAddress @PublicIPSplat
 # define values for load balancer
 $LBName = "DEMO_LoadBalancer"
 $LBFrontEnd = New-AzLoadBalancerFrontendIpConfig -Name "DEMO_LBFrontEnd" -PublicIpAddress $PublicIP
+$Sku = 'Basic'
+$LBBackEnd = Get-AzVirtualNetwork -ResourceGroupName $ResourceGroupName -Name "DEMO_VNET"
 
-New-AzLoadBalancer -
+New-AzLoadBalancer -BackendAddressPool $LBBackEnd -
+
