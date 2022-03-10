@@ -19,6 +19,7 @@ Build-RSPublicIP -ResourceGroupName $ResourceGroupName -Location $Location
 Build-RSPeer -ResourceGroupName $ResourceGroupName
 
 ## availability set
+Build-RSAvailabilitySet -ResourceGroupName $ResourceGroupName -Location $Location
 
 # load balancer
 
