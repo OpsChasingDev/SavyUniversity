@@ -20,8 +20,8 @@ $Sku = 'Basic'
 $LBFrontEnd = New-AzLoadBalancerFrontendIpConfig -Name "DEMO_LBFrontEnd" -PublicIpAddress $PublicIP
 $LBBackEnd = New-AzLoadBalancerBackendAddressPoolConfig -Name "DEMO_LBBackEnd"
 $LBProbe = New-AzLoadBalancerProbeConfig -Name "DEMO_LBProbe" -Protocol "http" -Port 80 -IntervalInSeconds 15 -ProbeCount 2 -RequestPath "healthcheck.aspx"
-$LBInboundNAT = New-AzLoadBalancerInboundNatRuleConfig -Name "DEMO_LBNAT" -FrontendIpConfiguration $PublicIP -Protocol "tcp" -FrontendPort 80 -BackendPort 80
-$LBRule = New-AzLoadBalancerRuleConfig -Name "DEMO_LBRule" -FrontendIpConfiguration $PublicIP -BackendAddressPool $LBBackEnd -Probe $LBProbe -Protocol "tcp" -FrontendPort 80 -BackendPort 80 -IdleTimeoutInMinutes 15
+$LBInboundNAT = New-AzLoadBalancerInboundNatRuleConfig -Name "DEMO_LBNAT" -FrontendIpConfiguration $LBFrontEnd -Protocol "tcp" -FrontendPort 80 -BackendPort 80
+$LBRule = New-AzLoadBalancerRuleConfig -Name "DEMO_LBRule" -FrontendIpConfiguration $LBFrontEnd -BackendAddressPool $LBBackEnd -Probe $LBProbe -Protocol "tcp" -FrontendPort 80 -BackendPort 80 -IdleTimeoutInMinutes 15
 
-$LB = New-AzLoadBalancer -Name "DEMO_LB" -ResourceGroupName $ResourceGroupName -Location $Location -FrontendIpConfiguration $PublicIP -BackendAddressPool $LBBackEnd -Probe $LBProbe -InboundNatRule $LBInboundNAT -LoadBalancingRule $LBRule
+$LB = New-AzLoadBalancer -Name "DEMO_LB" -ResourceGroupName $ResourceGroupName -Location $Location -FrontendIpConfiguration $LBFrontEnd -BackendAddressPool $LBBackEnd -Probe $LBProbe -InboundNatRule $LBInboundNAT -LoadBalancingRule $LBRule
 
