@@ -35,6 +35,8 @@ function Build-RSVM {
     $VirtualNetworkName = $ResourceGroupName + "_VNET"
     $VirtualNetwork = Get-AzVirtualNetwork -Name $VirtualNetworkName
     $SubnetId = $VirtualNetwork.Subnets.Id
+    $LBName = $ResourceGroupName + "_LoadBalancer"
+    $LBBackEnd = Get-AzLoadBalancerBackendAddressPool -ResourceGroupName $ResourceGroupName -LoadBalancerName $LBName
 
     # VM construction
     for ($v = 1; $v -le $VMNumber; $v++) {
@@ -45,6 +47,7 @@ function Build-RSVM {
             ResourceGroupName = $ResourceGroupName
             Location = $Location
             SubnetId = $SubnetId
+            LoadBalancerBackendAddressPool = $LBBackEnd
         }
         $NIC = New-AzNetworkInterface @NICSplat
 
