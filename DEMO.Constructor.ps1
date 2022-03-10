@@ -5,10 +5,10 @@
 
 # virtual network
 
-# peering
+# public IP
 
 # availability set
 
-# VMs, including disks, NICs, and assigning to the availability set
+# peering
 
-# public IP and load balancer
+# VMs, including disks, NICs, and assigning to the availability set and load balancer
