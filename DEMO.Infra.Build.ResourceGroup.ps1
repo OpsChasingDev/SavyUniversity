@@ -1,11 +1,15 @@
+function Build-RSResourceGroup {
+    [Cmdletbinding()]
+    param (
+        [Parameter(Mandatory,
+                    ValueFromPipelineByPropertyName)]
+        [string]$ResourceGroupName,
 
-param (
-    [Parameter(Mandatory)]
-    [string]$ResourceGroupName,
-    
-    [Parameter(Mandatory)]
-    [string]$Location
-)
-Connect-AzAccount
-New-AzResourceGroup -Name $ResourceGroupName -Location $Location
+        [Parameter(Mandatory,
+                    ValueFromPipelineByPropertyName)]
+        [string]$Location
+    )
 
+    New-AzResourceGroup -Name $ResourceGroupName -Location $Location
+
+}
