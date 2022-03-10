@@ -2,7 +2,12 @@
 # time for 3 VMs: ~6 minutes
 # new time after parallel: ~3 minutes
 
-$Read = Read-Host "Do you want to remove all non-vnet resources in the Resource Group 'DEMO'?  Type 'yes' to confirm."
+param (
+    [Parameter(Mandatory)]
+    [string]$ResourceGroupName
+)
+
+$Read = Read-Host "Do you want to remove all non-vnet resources in the Resource Group $ResourceGroupName?  Type 'yes' to confirm."
 
 <#
 if($Read -eq "yes") {
@@ -19,7 +24,7 @@ if ($Read -eq "yes"){
 
     # virtual machine removal
     Write-Verbose "Removing virtual machines..."
-    $VirtualMachine = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Compute/virtualMachines"}
+    $VirtualMachine = Get-AzResource -ResourceGroupName $ResourceGroupName | Where-Object {$_.Type -eq "Microsoft.Compute/virtualMachines"}
     foreach ($m in $VirtualMachine) {
         $m | Remove-AzResource -Force -AsJob
     }
@@ -32,7 +37,7 @@ if ($Read -eq "yes"){
 
     # virtual disk removal
     Write-Verbose "Removing virtual disks..."
-    $VirtualDisk = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Compute/disks"}
+    $VirtualDisk = Get-AzResource -ResourceGroupName $ResourceGroupName | Where-Object {$_.Type -eq "Microsoft.Compute/disks"}
     foreach ($d in $VirtualDisk) {
         $d | Remove-AzResource -Force -AsJob
     }
@@ -45,7 +50,7 @@ if ($Read -eq "yes"){
 
     # virtual network interface removal
     Write-Verbose "Removing virtual network interfaces..."
-    $VirtualNetworkInterface = Get-AzResource -ResourceGroupName "demo" | Where-Object {$_.Type -eq "Microsoft.Network/networkInterfaces"}
+    $VirtualNetworkInterface = Get-AzResource -ResourceGroupName $ResourceGroupName | Where-Object {$_.Type -eq "Microsoft.Network/networkInterfaces"}
     foreach ($n in $VirtualNetworkInterface) {
         $n | Remove-AzResource -Force -AsJob
     }
@@ -55,6 +60,32 @@ if ($Read -eq "yes"){
         Start-Sleep -Seconds 5
     } while ($JobVirtualNetworkInterface)
     Write-Verbose "All virtual network interfaces removed."
+
+    # virtual availabilityset removal
+    Write-Verbose "Removing AvailabilitySet..."
+    $VirtualAvailabilitySet = Get-AzResource -ResourceGroupName $ResourceGroupName | Where-Object {$_.Type -eq "Microsoft.Compute/availabilitySets"}
+    foreach ($n in $VirtualAvailabilitySet) {
+        $n | Remove-AzResource -Force -AsJob
+    }
+    do {
+        $JobVirtualAvailabilitySet = Get-Job | Where-Object {$_.State -eq 'Running'}
+        Write-Verbose "Working..."
+        Start-Sleep -Seconds 5
+    } while ($JobVirtualAvailabilitySet)
+    Write-Verbose "All AvailabilitySets removed."
+
+    # public IP removal
+    Write-Verbose "Removing Public IPs..."
+    $PublicIP = Get-AzResource -ResourceGroupName $ResourceGroupName | Where-Object {$_.Type -eq "Microsoft.Network/publicIPAddresses"}
+    foreach ($n in $PublicIP) {
+        $n | Remove-AzResource -Force -AsJob
+    }
+    do {
+        $JobPublicIP = Get-Job | Where-Object {$_.State -eq 'Running'}
+        Write-Verbose "Working..."
+        Start-Sleep -Seconds 5
+    } while ($JobPublicIP)
+    Write-Verbose "All AvailabilitySets removed."
 }
 
 $JobRemove = Read-Host "Do you want to clean up the completed jobs? [yes, no]"
