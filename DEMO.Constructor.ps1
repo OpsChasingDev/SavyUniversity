@@ -10,6 +10,7 @@ $Location = "eastus2"
 Build-RSResourceGroup -ResourceGroupName $ResourceGroupName -Location $Location
 
 ## virtual network
+Build-RSVNET -ResourceGroupName $ResourceGroupName -Location $Location
 
 ## public IP
 
