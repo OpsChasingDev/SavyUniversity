@@ -7,8 +7,8 @@
 
 ## public IP
 
-# peering
+## peering
 
-# availability set
+## availability set
 
 # VMs, including disks, NICs, and assigning to the availability set and load balancer

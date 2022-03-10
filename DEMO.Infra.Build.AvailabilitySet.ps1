@@ -1,6 +1,12 @@
-$AvailabilitySetName = "DEMO_AvailabilitySet"
-$ResourceGroupName = "DEMO"
-$Location = "eastus2"
+param (
+    [Parameter(Mandatory)]
+    [string]$ResourceGroupName,
+    
+    [Parameter(Mandatory)]
+    [string]$Location
+)
+
+$AvailabilitySetName = $ResourceGroupName + "_AvailabilitySet"
 $Sku = "Aligned"
 $FaultDomain = 2
 $UpdateDomain = 5
