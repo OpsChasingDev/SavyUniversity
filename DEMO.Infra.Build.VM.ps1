@@ -12,19 +12,25 @@ Specifying credentials with your PS remoting will be necessary in order to estab
 
 param (
     [Parameter(Mandatory)]
-    [int]$VMNumber
+    [int]$VMNumber,
+
+    [Parameter(Mandatory)]
+    [string]$ResourceGroupName,
+    
+    [Parameter(Mandatory)]
+    [string]$Location
 )
 
 $VerbosePreference = 'Continue'
 
 # identify resource group and region
-$ResourceGroupName = "DEMO"
-$Location = "eastus2"
-$AvailabilitySet = Get-AzAvailabilitySet -Name "DEMO_AvailabilitySet" -ResourceGroupName $ResourceGroupName
+$AvailabilitySetName = $ResourceGroupName + "_AvailabilitySet"
+$AvailabilitySet = Get-AzAvailabilitySet -Name $AvailabilitySetName -ResourceGroupName $ResourceGroupName
 Write-Verbose "Operating in the Resource Group called $ResourceGroupName in the region $Location."
 
 # identify the subnet to use on the existing virtual network
-$VirtualNetwork = Get-AzVirtualNetwork -Name "DEMO_VNET"
+$VirtualNetworkName = $ResourceGroupName + "_VNET"
+$VirtualNetwork = Get-AzVirtualNetwork -Name $VirtualNetworkName
 $SubnetId = $VirtualNetwork.Subnets.Id
 
 # VM construction
@@ -45,7 +51,7 @@ for ($v = 1; $v -le $VMNumber; $v++) {
     $Credential = New-Object -TypeName System.Management.Automation.PSCredential ($LocalAdmin,$LocalPass)
 
     # construct VM attributes
-    $Name = "DEMO-VM-" + $v
+    $Name = $ResourceGroupName + "-VM-" + $v
     $Size = "Standard_B1ms"
 
     # construct VM object

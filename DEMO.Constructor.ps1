@@ -11,4 +11,6 @@
 
 ## availability set
 
-# VMs, including disks, NICs, and assigning to the availability set and load balancer
+# load balancer
+
+## VMs, including disks, NICs, and assigning to the availability set and load balancer
