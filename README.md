@@ -8,7 +8,6 @@ Current endeavor involves continuously maturing the ability to create re-usable 
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
 Next objectives:
-- install web services on the DMEO VMs using powershell remoting
-- get rudimentary web content up on the VMs and be able to browse it from Sandbox
-- get a public IP address for the DEMO resource group
-- get a load balancer in place for the DEMO resource group
+- complete function for VM build and test
+- add VNET peer removal for cleanup script
+- build load balancer into automation
