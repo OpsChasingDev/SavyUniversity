@@ -22,7 +22,8 @@ Build-RSPeer -ResourceGroupName $ResourceGroupName
 ## availability set
 Build-RSAvailabilitySet -ResourceGroupName $ResourceGroupName -Location $Location
 
-# load balancer
+## load balancer
+Build-RSLoadBalancer -ResourceGroupName $ResourceGroupName -Location $Location
 
 ## VMs, including disks, NICs, and assigning to the availability set and load balancer
 Build-RSVM -ResourceGroupName $ResourceGroupName -Location $Location -VMNumber $VMNumber
