@@ -1,8 +1,14 @@
+param (
+    [Parameter(Mandatory)]
+    [string]$ResourceGroupName,
+    
+    [Parameter(Mandatory)]
+    [string]$Location
+)
+
 # define values for public IP address
-$ResourceGroupName = "DEMO"
-$Location = "eastus2"
-$PublicIPName = 'DEMO_PublicIP'
-$AllocationMethod = "static"
+$PublicIPName = $ResourceGroupName + "_PublicIP"
+$AllocationMethod = "Static"
 
 # create public IP
 $PublicIPSplat = @{
