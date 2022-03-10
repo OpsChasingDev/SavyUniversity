@@ -3,6 +3,7 @@ Script to run against all remote VMs once powershell remoting is enabled in orde
 #>
 
 $cred = Get-Credential
+Connect-AzAccount
 
 $VMCount = (Get-AzVM -ResourceGroupName "DEMO").Count
 $Collection = @()
