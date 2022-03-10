@@ -16,6 +16,7 @@ Build-RSVNET -ResourceGroupName $ResourceGroupName -Location $Location
 Build-RSPublicIP -ResourceGroupName $ResourceGroupName -Location $Location
 
 ## peering
+Build-RSPeer -ResourceGroupName $ResourceGroupName
 
 ## availability set
 
