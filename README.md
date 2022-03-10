@@ -8,6 +8,5 @@ Current endeavor involves continuously maturing the ability to create re-usable 
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
 Next objectives:
-- complete function for VM build and test
 - add VNET peer removal for cleanup script
 - build load balancer into automation
