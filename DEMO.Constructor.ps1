@@ -5,6 +5,7 @@ Connect-AzAccount
 
 $ResourceGroupName = "DEMO"
 $Location = "eastus2"
+$VMNumber = 2
 
 ## resource group
 Build-RSResourceGroup -ResourceGroupName $ResourceGroupName -Location $Location
@@ -24,3 +25,4 @@ Build-RSAvailabilitySet -ResourceGroupName $ResourceGroupName -Location $Locatio
 # load balancer
 
 ## VMs, including disks, NICs, and assigning to the availability set and load balancer
+Build-RSVM -ResourceGroupName $ResourceGroupName -Location $Location -VMNumber $VMNumber
