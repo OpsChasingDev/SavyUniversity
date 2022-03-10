@@ -13,6 +13,7 @@ Build-RSResourceGroup -ResourceGroupName $ResourceGroupName -Location $Location
 Build-RSVNET -ResourceGroupName $ResourceGroupName -Location $Location
 
 ## public IP
+Build-RSPublicIP -ResourceGroupName $ResourceGroupName -Location $Location
 
 ## peering
 
