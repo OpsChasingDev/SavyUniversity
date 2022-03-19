@@ -10,7 +10,7 @@ You must also run the below command once on the machine from which you initiate 
 Specifying credentials with your PS remoting will be necessary in order to establish connections
 #>
 
-function Build-RSVM {
+#function Build-RSVM {
     param (
         [Parameter(Mandatory)]
         [int]$VMNumber,
@@ -47,7 +47,7 @@ function Build-RSVM {
             ResourceGroupName = $ResourceGroupName
             Location = $Location
             SubnetId = $SubnetId
-            LoadBalancerBackendAddressPool = $LBBackEnd
+            LoadBalancerBackendAddressPoolId = $LBBackEnd.Id
         }
         $NIC = New-AzNetworkInterface @NICSplat
 
@@ -76,4 +76,4 @@ function Build-RSVM {
         Start-Sleep -Seconds 10
     } while ($JobVMBuild)
     Write-Verbose "Construction completed."
-}
+#}
