@@ -41,7 +41,7 @@ function Build-RSVM {
     # VM construction
     for ($v = 1; $v -le $VMNumber; $v++) {
         # construct network adapter
-        $NICName = "DEMO-VM-" + $v + "_NIC"
+        $NICName = $ResourceGroupName + "-VM-" + $v + "_NIC"
         $NICSplat = @{
             Name = $NICName
             ResourceGroupName = $ResourceGroupName
