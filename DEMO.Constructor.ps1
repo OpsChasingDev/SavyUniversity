@@ -1,6 +1,14 @@
 # The targeted final goal for a "push button" method of full infrastructure deployment
 # Comments below list the order of operations under which the infrastructure will need to be built
 
+. "c:\git\SavyUniversity\DEMO.Infra.Build.ResourceGroup.ps1"
+. "c:\git\SavyUniversity\DEMO.Infra.Build.VNET.ps1"
+. "c:\git\SavyUniversity\DEMO.Infra.Build.PublicIP.ps1"
+. "c:\git\SavyUniversity\DEMO.Infra.Build.Peer.ps1"
+. "c:\git\SavyUniversity\DEMO.Infra.Build.AvailabilitySet.ps1"
+. "c:\git\SavyUniversity\DEMO.Infra.Build.LoadBalancer.ps1"
+. "c:\git\SavyUniversity\DEMO.Infra.Build.VM.ps1"
+
 Connect-AzAccount
 
 $ResourceGroupName = "DEMO"
