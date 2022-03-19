@@ -20,7 +20,7 @@ function Build-RSLoadBalancer {
 
     $LBFrontEnd = New-AzLoadBalancerFrontendIpConfig -Name $LBFrontEndName -PublicIpAddress $PublicIP
     $LBBackEnd = New-AzLoadBalancerBackendAddressPoolConfig -Name $LBBackEndName
-    $LBProbe = New-AzLoadBalancerProbeConfig -Name $LBProbeName -Protocol "http" -Port 80 -IntervalInSeconds 15 -ProbeCount 2 -RequestPath "healthcheck.aspx"
+    $LBProbe = New-AzLoadBalancerProbeConfig -Name $LBProbeName -Protocol "http" -Port 80 -IntervalInSeconds 15 -ProbeCount 2 -RequestPath "\"
     $LBRule = New-AzLoadBalancerRuleConfig -Name $LBRuleName -FrontendIpConfiguration $LBFrontEnd -BackendAddressPool $LBBackEnd -Probe $LBProbe -Protocol "tcp" -FrontendPort 80 -BackendPort 80 -IdleTimeoutInMinutes 15
 
     # create load balancer
