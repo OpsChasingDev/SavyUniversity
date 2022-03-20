@@ -1,25 +1,5 @@
-# creates fairly generic VMs in the 'demo' Resource Group
+# preparing Windows image for generalized use in Azure
+# https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image
 
-Param (
-    [Parameter(Mandatory)]
-    [int]$VMNumber
-)
-
-# connect to Azure sub
-Connect-AzAccount
-
-# store credentials for VMs
-$cred = Get-Credential
-
-# create virtual machines
-for ($i=1; $i -le $VMNumber; $i++) {
-    $splat = @{
-        ResourceGroupName = 'Demo'
-        Name = 'DEMO-VM-' + $i
-        Image = 'Win2019Datacenter'
-        Size = 'Standard_B1ms'
-        Credential = $cred
-        OpenPorts = '3389'
-    }
-    New-AzVM @splat
-}
+# uploading generalized Windows image to Azure
+# https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sa-upload-generalized
