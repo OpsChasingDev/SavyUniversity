@@ -3,3 +3,4 @@
 
 # uploading generalized Windows image to Azure
 # https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sa-upload-generalized
+# https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sa-upload-generalized#upload-the-vhd
