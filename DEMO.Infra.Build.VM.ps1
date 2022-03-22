@@ -61,10 +61,12 @@ function Build-RSVM {
         $Size = "Standard_B1ms"
 
         # construct VM object
+        $VHDUri = 'https://savylabsandbox.blob.core.windows.net/vhdx/Server-2022-Core-WinRM.vhdx'
         $VM = New-AzVMConfig -VMName $Name -VMSize $Size -AvailabilitySetId $AvailabilitySet.Id
         $VM = Set-AzVMOperatingSystem -VM $VM -Windows -ComputerName $Name -Credential $Credential -ProvisionVMAgent -EnableAutoUpdate
         $VM = Add-AzVMNetworkInterface -VM $VM -Id $NIC.Id
-        $VM = Set-AzVMSourceImage -VM $VM -PublisherName 'MicrosoftWindowsServer' -Offer 'WindowsServer' -Skus '2019-Datacenter-Core' -Version latest
+        # $VM = Set-AzVMSourceImage -VM $VM -PublisherName 'MicrosoftWindowsServer' -Offer 'WindowsServer' -Skus '2019-Datacenter-Core' -Version latest
+        $VM = Set-AzVMOSDisk -VM $VM -Name 'idk' -VhdUri $VHDUri -Windows
 
         # make VM
         New-AzVM -VM $VM -ResourceGroupName $ResourceGroupName -Location $Location -AsJob
