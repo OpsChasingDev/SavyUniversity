@@ -4,3 +4,6 @@
 # uploading generalized Windows image to Azure
 # https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sa-upload-generalized
 # https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sa-upload-generalized#upload-the-vhd
+
+# creating managed image from VHD file and use the managed image to create a VM
+# https://www.c-sharpcorner.com/article/creating-an-azure-vm-from-the-vhdxvhd-file/
