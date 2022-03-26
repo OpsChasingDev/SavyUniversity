@@ -10,7 +10,7 @@ function Build-RSAvailabilitySet {
     )
 
     $AvailabilitySetName = $ResourceGroupName + "_AvailabilitySet"
-    #$Sku = "Aligned"
+    $Sku = "Aligned"
     $FaultDomain = 2
     $UpdateDomain = 5
 
@@ -18,7 +18,7 @@ function Build-RSAvailabilitySet {
         Name = $AvailabilitySetName
         ResourceGroupName = $ResourceGroupName
         Location = $Location
-        #Sku = $Sku
+        Sku = $Sku
         PlatformFaultDomainCount = $FaultDomain
         PlatformUpdateDomainCount = $UpdateDomain
     }

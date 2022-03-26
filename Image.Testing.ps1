@@ -1,24 +1,24 @@
 # https://www.youtube.com/watch?v=_b5T-dPpd00
 
-$Name = 'VM'
+#$Name = 'VM'
 $ResourceGroupName = 'DEMO'
 $Location = 'eastus2'
 $ImageName = 'Server-2022-Core-WinRM'
 $ImageURI = 'https://savylabsandbox.blob.core.windows.net/vhdx/Server-2022-Core-WinRM.vhd'
-$VHDUri = 'https://savylabsandbox.blob.core.windows.net/disks'
-$LocalAdmin = "RStapleton"
-$LocalPass = ConvertTo-SecureString "SomethingB3tt3r!@#" -AsPlainText -Force
-$Credential = New-Object -TypeName System.Management.Automation.PSCredential ($LocalAdmin,$LocalPass)
-$VirtualNetwork = Get-AzVirtualNetwork -Name 'DEMO_VNET'
-$SubnetId = $VirtualNetwork.Subnets.Id
-$NICSplat = @{
+#$VHDUri = 'https://savylabsandbox.blob.core.windows.net/disks'
+#$LocalAdmin = "RStapleton"
+#$LocalPass = ConvertTo-SecureString "SomethingB3tt3r!@#" -AsPlainText -Force
+#$Credential = New-Object -TypeName System.Management.Automation.PSCredential ($LocalAdmin,$LocalPass)
+#$VirtualNetwork = Get-AzVirtualNetwork -Name 'DEMO_VNET'
+#$SubnetId = $VirtualNetwork.Subnets.Id
+<#$NICSplat = @{
     Name = 'testvm_NIC'
     ResourceGroupName = $ResourceGroupName
     Location = $Location
     SubnetId = $SubnetId
 }
 $NIC = New-AzNetworkInterface @NICSplat
-
+#>
 <#
 $VM = New-AzVMConfig -VMName 'testvm' -VMSize "Standard_B1ms"
 $VM = Add-AzVMNetworkInterface -VM $VM -Id $NIC.Id
@@ -48,6 +48,7 @@ $ImageSplat = @{
 }
 New-AzImage @ImageSplat
 
+<#
 $VMSplat = @{
     Name
     Image
@@ -56,3 +57,4 @@ $VMSplat = @{
     VirtualNetworkName
 }
 New-AzVM @VMSplat
+#>
