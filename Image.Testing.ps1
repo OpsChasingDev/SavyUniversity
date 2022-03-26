@@ -19,8 +19,31 @@ $NICSplat = @{
 }
 $NIC = New-AzNetworkInterface @NICSplat
 
+<#
 $VM = New-AzVMConfig -VMName 'testvm' -VMSize "Standard_B1ms"
 $VM = Add-AzVMNetworkInterface -VM $VM -Id $NIC.Id
 $VM = Set-AzVMOperatingSystem -VM $VM -Windows -ComputerName "TestVM" -Credential $Credential
 $VM = Set-AzVMOSDisk -VM $VM -Name "osDisk.vhd" -SourceImageUri $ImageURI -CreateOption fromImage -Windows
 New-AzVM -VM $VM -ResourceGroupName $ResourceGroupName -Location $Location
+#>
+
+# create image config
+$Image = New-AzImageConfig -Location $Location
+
+# add OS information to the image config
+$ImageConfigSplat = @{
+    Image = $Image
+    OsType = 'Windows'
+    OsState = 'Generalized'
+    BlobUri = $ImageURI
+    DiskSizeGB = 65
+}
+$Image = Set-AzImageOsDisk @ImageConfigSplat
+
+# create the image from the config
+$ImageSplat = @{
+    ImageName = $ImageName
+    ResourceGroupName = $ResourceGroupName
+    Image = $Image
+}
+New-AzImage @ImageSplat
