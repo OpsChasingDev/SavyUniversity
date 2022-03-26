@@ -47,3 +47,12 @@ $ImageSplat = @{
     Image = $Image
 }
 New-AzImage @ImageSplat
+
+$VMSplat = @{
+    Name
+    Image
+    ResourceGroupName
+    Location
+    VirtualNetworkName
+}
+New-AzVM @VMSplat

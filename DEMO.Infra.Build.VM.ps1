@@ -59,12 +59,14 @@ function Build-RSVM {
         # construct VM attributes
         $Name = $ResourceGroupName + "-VM-" + $v
         $Size = "Standard_B1ms"
+        $ImageId = (Get-AzResource -ResourceGroupName $ResourceGroupName | Where-Object {$_.ResourceType -eq 'Microsoft.Compute/images'}).id
 
         # construct VM object
         $VM = New-AzVMConfig -VMName $Name -VMSize $Size -AvailabilitySetId $AvailabilitySet.Id
         $VM = Set-AzVMOperatingSystem -VM $VM -Windows -ComputerName $Name -Credential $Credential -ProvisionVMAgent -EnableAutoUpdate
         $VM = Add-AzVMNetworkInterface -VM $VM -Id $NIC.Id
-        $VM = Set-AzVMSourceImage -VM $VM -PublisherName 'MicrosoftWindowsServer' -Offer 'WindowsServer' -Skus '2019-Datacenter-Core' -Version latest
+        # $VM = Set-AzVMSourceImage -VM $VM -PublisherName 'MicrosoftWindowsServer' -Offer 'WindowsServer' -Skus '2019-Datacenter-Core' -Version latest
+        $VM = Set-AzVMSourceImage -VM $VM -Id $ImageId
 
         # make VM
         New-AzVM -VM $VM -ResourceGroupName $ResourceGroupName -Location $Location -AsJob
