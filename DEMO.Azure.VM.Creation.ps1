@@ -7,3 +7,4 @@
 
 # creating managed image from VHD file and use the managed image to create a VM
 # https://www.c-sharpcorner.com/article/creating-an-azure-vm-from-the-vhdxvhd-file/
+# https://www.youtube.com/watch?v=_b5T-dPpd00
