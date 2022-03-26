@@ -4,7 +4,7 @@
 $ResourceGroupName = 'DEMO'
 $Location = 'eastus2'
 $ImageName = 'Server-2022-Core-WinRM'
-$ImageURI = 'https://savylabsandbox.blob.core.windows.net/vhdx/Server-2022-Core-WinRM-Gen1_Converted.vhd'
+$ImageURI = 'https://savylabsandbox.blob.core.windows.net/vhdx/Server-2022-Core-WinRM-Gen1.vhd'
 #$VHDUri = 'https://savylabsandbox.blob.core.windows.net/disks'
 #$LocalAdmin = "RStapleton"
 #$LocalPass = ConvertTo-SecureString "SomethingB3tt3r!@#" -AsPlainText -Force

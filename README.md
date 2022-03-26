@@ -8,5 +8,5 @@ Current endeavor involves continuously maturing the ability to create re-usable 
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
 Next objectives:
-- add VNET peer removal for cleanup script
-- build load balancer into automation
+- create VMs from custom image already configured to accept remote PS connections
+- fix constructor script which will indefinitely continue to run the VM creation even though the VMs are up and good
