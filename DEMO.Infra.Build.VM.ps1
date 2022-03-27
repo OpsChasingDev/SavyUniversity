@@ -24,10 +24,7 @@ function Build-RSVM {
         [string]$Location,
 
         [Parameter(Mandatory)]
-        [string]$LocalAdmin,
-
-        [Parameter(Mandatory)]
-        [string]$LocalPass
+        [System.Management.Automation.PSCredential]$Credential
     )
 
     $VerbosePreference = 'Continue'
@@ -58,7 +55,7 @@ function Build-RSVM {
         $NIC = New-AzNetworkInterface @NICSplat
 
         # construct VM local credentials
-        $Credential = New-Object -TypeName System.Management.Automation.PSCredential ($LocalAdmin,$LocalPass)
+        # $Credential = New-Object -TypeName System.Management.Automation.PSCredential ($LocalAdmin,$LocalPass)
 
         # construct VM attributes
         $Name = $ResourceGroupName + "-VM-" + $v

@@ -2,13 +2,8 @@
 function Build-RSVMConfig {
     param (
         [Parameter(Mandatory)]
-        [string]$LocalAdmin,
-
-        [Parameter(Mandatory)]
-        [string]$LocalPass
+        [System.Management.Automation.PSCredential]$Credential
     )
-    
-    $Credential = New-Object -TypeName System.Management.Automation.PSCredential ($LocalAdmin,$LocalPass)
 
     $VMCount = (Get-AzVM -ResourceGroupName "DEMO").Count
     $Collection = @()
