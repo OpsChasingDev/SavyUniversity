@@ -21,6 +21,9 @@ Build-RSResourceGroup -ResourceGroupName $ResourceGroupName -Location $Location
 ## virtual network
 Build-RSVNET -ResourceGroupName $ResourceGroupName -Location $Location
 
+## VM image
+Build-VMImage -ResourceGroupName $ResourceGroupName -Location $Location
+
 ## public IP
 Build-RSPublicIP -ResourceGroupName $ResourceGroupName -Location $Location
 
