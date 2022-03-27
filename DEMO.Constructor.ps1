@@ -23,29 +23,51 @@ $Credential = New-Object System.Management.Automation.PSCredential($User,$Pass)
 $ResourceGroupName = "DEMO"
 $Location = "eastus2"
 $VMNumber = Read-Host "Enter the number of VMs to make"
-#$LocalAdmin = $Credential.UserName
-#$LocalPass = $Credential.Password
 
 ## resource group
-Build-RSResourceGroup -ResourceGroupName $ResourceGroupName -Location $Location
+$RSResourceGroupSplat = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+}
+Build-RSResourceGroup @$RSResourceGroupSplat -OutVariable RSResourceGroup > $null
 
 ## virtual network
-Build-RSVNET -ResourceGroupName $ResourceGroupName -Location $Location
+$RSVNETSplat = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+}
+Build-RSVNET @RSVNETSplat -OutVariable RSVNET > $null
 
 ## VM image
-Build-RSVMImage -ResourceGroupName $ResourceGroupName -Location $Location
+$RSVMImageSplat = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+}
+Build-RSVMImage @RSVMImageSplat -OutVariable RSVMImage > $null
 
 ## public IP
-Build-RSPublicIP -ResourceGroupName $ResourceGroupName -Location $Location
+$RSPublicIPSplat = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+}
+Build-RSPublicIP @RSPublicIPSplat -OutVariable RSPublicIP > $null
 
 ## peering
-Build-RSPeer -ResourceGroupName $ResourceGroupName
+Build-RSPeer -ResourceGroupName $ResourceGroupName -OutVariable RSPeer > $null
 
 ## availability set
-Build-RSAvailabilitySet -ResourceGroupName $ResourceGroupName -Location $Location
+$RSAvailabilitySetSplat = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+}
+Build-RSAvailabilitySet @RSAvailabilitySetSplat -OutVariable RSAvailabilitySet > $null
 
 ## load balancer
-Build-RSLoadBalancer -ResourceGroupName $ResourceGroupName -Location $Location
+$RSLoadBalancerSplat = @{
+    ResourceGroupName = $ResourceGroupName
+    Location = $Location
+}
+Build-RSLoadBalancer @RSLoadBalancerSplat -OutVariable RSLoadBalancer > $null
 
 ## VMs, including disks, NICs, and assigning to the availability set and load balancer
 $RSVMSplat = @{
@@ -54,7 +76,7 @@ $RSVMSplat = @{
     VMNumber = $VMNumber
     Credential = $Credential
 }
-Build-RSVM @RSVMSplat
+Build-RSVM @RSVMSplat -OutVariable RSVM > $null
 
 ## VM configuration
 Build-RSVMConfig -Credential $Credential
