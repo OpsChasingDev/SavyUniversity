@@ -1,11 +1,11 @@
 function Build-RSLoadBalancer {
     param (
         [Parameter(Mandatory,
-                    ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName)]
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory,
-                    ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName)]
         [string]$Location
     )
 
@@ -25,13 +25,13 @@ function Build-RSLoadBalancer {
 
     # create load balancer
     $LBSplat = @{
-        Name = $LBName
-        ResourceGroupName = $ResourceGroupName
-        Location = $Location
+        Name                    = $LBName
+        ResourceGroupName       = $ResourceGroupName
+        Location                = $Location
         FrontendIpConfiguration = $LBFrontEnd
-        BackendAddressPool = $LBBackEnd
-        Probe = $LBProbe
-        LoadBalancingRule = $LBRule
+        BackendAddressPool      = $LBBackEnd
+        Probe                   = $LBProbe
+        LoadBalancingRule       = $LBRule
     }
     New-AzLoadBalancer @LBSplat
 }

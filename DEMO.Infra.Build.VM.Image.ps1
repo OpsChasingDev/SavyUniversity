@@ -16,19 +16,19 @@ function Build-RSVMImage {
 
     # add OS information to the image config
     $ImageConfigSplat = @{
-        Image = $Image
-        OsType = 'Windows'
-        OsState = 'Generalized'
-        BlobUri = $ImageURI
+        Image      = $Image
+        OsType     = 'Windows'
+        OsState    = 'Generalized'
+        BlobUri    = $ImageURI
         DiskSizeGB = 65
     }
     $Image = Set-AzImageOsDisk @ImageConfigSplat
 
     # create the image from the config
     $ImageSplat = @{
-        ImageName = $ImageName
+        ImageName         = $ImageName
         ResourceGroupName = $ResourceGroupName
-        Image = $Image
+        Image             = $Image
     }
     New-AzImage @ImageSplat
 }

@@ -1,11 +1,11 @@
 function Build-RSAvailabilitySet {
     param (
         [Parameter(Mandatory,
-                    ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName)]
         [string]$ResourceGroupName,
         
         [Parameter(Mandatory,
-                    ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName)]
         [string]$Location
     )
 
@@ -15,11 +15,11 @@ function Build-RSAvailabilitySet {
     $UpdateDomain = 5
 
     $AvailabilitySetSplat = @{
-        Name = $AvailabilitySetName
-        ResourceGroupName = $ResourceGroupName
-        Location = $Location
-        Sku = $Sku
-        PlatformFaultDomainCount = $FaultDomain
+        Name                      = $AvailabilitySetName
+        ResourceGroupName         = $ResourceGroupName
+        Location                  = $Location
+        Sku                       = $Sku
+        PlatformFaultDomainCount  = $FaultDomain
         PlatformUpdateDomainCount = $UpdateDomain
     }
 

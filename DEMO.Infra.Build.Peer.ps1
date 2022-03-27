@@ -1,7 +1,7 @@
 function Build-RSPeer {
     param (
         [Parameter(Mandatory,
-                    ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName)]
         [string]$ResourceGroupName
     )
 

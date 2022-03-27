@@ -1,11 +1,11 @@
 function Build-RSPublicIP {
     param (
         [Parameter(Mandatory,
-                    ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName)]
         [string]$ResourceGroupName,
         
         [Parameter(Mandatory,
-                    ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName)]
         [string]$Location
     )
 
@@ -15,10 +15,10 @@ function Build-RSPublicIP {
 
     # create public IP
     $PublicIPSplat = @{
-        Name = $PublicIPName
+        Name              = $PublicIPName
         ResourceGroupName = $ResourceGroupName
-        Location = $Location
-        AllocationMethod = $AllocationMethod
+        Location          = $Location
+        AllocationMethod  = $AllocationMethod
     }
 
     New-AzPublicIpAddress @PublicIPSplat

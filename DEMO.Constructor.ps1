@@ -19,83 +19,83 @@ $VerbosePreference = 'Continue'
 $User = Read-Host "Enter a Local Username"
 $Pass = Read-Host "Enter a Password"
 $Pass = ConvertTo-SecureString "$Pass" -AsPlainText -Force
-$Credential = New-Object System.Management.Automation.PSCredential($User,$Pass)
+$Credential = New-Object System.Management.Automation.PSCredential($User, $Pass)
 
 $ResourceGroupName = "DEMO"
 $Location = "eastus2"
 $VMNumber = Read-Host "Enter the number of VMs to make"
 
-## resource group
+## RESOURCE GROUP ##
 Write-Verbose "Creating resource group $ResourceGroupName in the location $Location..."
 $RSResourceGroupSplat = @{
     ResourceGroupName = $ResourceGroupName
-    Location = $Location
+    Location          = $Location
 }
 Build-RSResourceGroup @RSResourceGroupSplat -OutVariable RSResourceGroup > $null
 Write-Verbose "Resource group completed."
 
-## virtual network
+## VIRTUAL NETWORK ##
 Write-Verbose "Creating virtual network for resource group $ResourceGroupName..."
 $RSVNETSplat = @{
     ResourceGroupName = $ResourceGroupName
-    Location = $Location
+    Location          = $Location
 }
 Build-RSVNET @RSVNETSplat -OutVariable RSVNET > $null
 Write-Verbose "Virtual network completed."
 
-## VM image
+## VIRTUAL MACHINE IMAGE ##
 Write-Verbose "Creating virtual machine image for resource group $ResourceGroupName..."
 $RSVMImageSplat = @{
     ResourceGroupName = $ResourceGroupName
-    Location = $Location
+    Location          = $Location
 }
 Build-RSVMImage @RSVMImageSplat -OutVariable RSVMImage > $null
 Write-Verbose "Virtual machine image completed."
 
-## public IP
+## PUBLIC IP ##
 Write-Verbose "Creating public IP for resource group $ResourceGroupName..."
 $RSPublicIPSplat = @{
     ResourceGroupName = $ResourceGroupName
-    Location = $Location
+    Location          = $Location
 }
 Build-RSPublicIP @RSPublicIPSplat -OutVariable RSPublicIP > $null
 Write-Verbose "Public IP completed."
 
-## peering
+## NETWORK PEERING ##
 Write-Verbose "Creating virtual network peering for the virtual network in $ResourceGroupName..."
 Build-RSPeer -ResourceGroupName $ResourceGroupName -OutVariable RSPeer > $null
 Write-Verbose "Virtual networking peering completed."
 
-## availability set
+## AVAILABILITY SET ##
 Write-Verbose "Creating availability set for resource group $ResourceGroupName..."
 $RSAvailabilitySetSplat = @{
     ResourceGroupName = $ResourceGroupName
-    Location = $Location
+    Location          = $Location
 }
 Build-RSAvailabilitySet @RSAvailabilitySetSplat -OutVariable RSAvailabilitySet > $null
 Write-Verbose "Availability set completed."
 
-## load balancer
+## LOAD BALANCER ##
 Write-Verbose "Creating the load balancer for resource group $ResourceGroupName..."
 $RSLoadBalancerSplat = @{
     ResourceGroupName = $ResourceGroupName
-    Location = $Location
+    Location          = $Location
 }
 Build-RSLoadBalancer @RSLoadBalancerSplat -OutVariable RSLoadBalancer > $null
 Write-Verbose "Load balancer completed."
 
-## VMs, including disks, NICs, and assigning to the availability set and load balancer
+## VIRTUAL MACHINE CREATION ##
 Write-Verbose "Creating $VMNumber virtual machine(s) for resource group $ResourceGroupName..."
 $RSVMSplat = @{
     ResourceGroupName = $ResourceGroupName
-    Location = $Location
-    VMNumber = $VMNumber
-    Credential = $Credential
+    Location          = $Location
+    VMNumber          = $VMNumber
+    Credential        = $Credential
 }
 Build-RSVM @RSVMSplat -OutVariable RSVM > $null
 Write-Verbose "Virtual machine(s) completed."
 
-## VM configuration
-Write-Verbose "Configuring the virtual machine(s) in resource group $ResourceGroupName..."
+## VIRTUAL MACHINE GUEST CONFIGURATION ##
+Write-Verbose "Configuring guest OS of the virtual machine(s) in resource group $ResourceGroupName..."
 Build-RSVMConfig -Credential $Credential
-Write-Verbose "Virtual machine(s) configuration completed."
+Write-Verbose "Virtual machine(s) guest OS configuration completed."

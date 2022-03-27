@@ -16,11 +16,11 @@ function Build-RSVM {
         [int]$VMNumber,
 
         [Parameter(Mandatory,
-                    ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName)]
         [string]$ResourceGroupName,
         
         [Parameter(Mandatory,
-                    ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName)]
         [string]$Location,
 
         [Parameter(Mandatory)]
@@ -46,27 +46,23 @@ function Build-RSVM {
         # construct network adapter
         $NICName = $ResourceGroupName + "-VM-" + $v + "_NIC"
         $NICSplat = @{
-            Name = $NICName
-            ResourceGroupName = $ResourceGroupName
-            Location = $Location
-            SubnetId = $SubnetId
+            Name                             = $NICName
+            ResourceGroupName                = $ResourceGroupName
+            Location                         = $Location
+            SubnetId                         = $SubnetId
             LoadBalancerBackendAddressPoolId = $LBBackEnd.Id
         }
         $NIC = New-AzNetworkInterface @NICSplat
 
-        # construct VM local credentials
-        # $Credential = New-Object -TypeName System.Management.Automation.PSCredential ($LocalAdmin,$LocalPass)
-
         # construct VM attributes
         $Name = $ResourceGroupName + "-VM-" + $v
         $Size = "Standard_B1ms"
-        $ImageId = (Get-AzResource -ResourceGroupName $ResourceGroupName | Where-Object {$_.ResourceType -eq 'Microsoft.Compute/images'}).id
+        $ImageId = (Get-AzResource -ResourceGroupName $ResourceGroupName | Where-Object { $_.ResourceType -eq 'Microsoft.Compute/images' }).id
 
         # construct VM object
         $VM = New-AzVMConfig -VMName $Name -VMSize $Size -AvailabilitySetId $AvailabilitySet.Id
         $VM = Set-AzVMOperatingSystem -VM $VM -Windows -ComputerName $Name -Credential $Credential -ProvisionVMAgent -EnableAutoUpdate
         $VM = Add-AzVMNetworkInterface -VM $VM -Id $NIC.Id
-        # $VM = Set-AzVMSourceImage -VM $VM -PublisherName 'MicrosoftWindowsServer' -Offer 'WindowsServer' -Skus '2019-Datacenter-Core' -Version latest
         $VM = Set-AzVMSourceImage -VM $VM -Id $ImageId
 
         # make VM
@@ -74,7 +70,7 @@ function Build-RSVM {
     }
 
     do {
-        $JobVMBuild = Get-Job | Where-Object {$_.State -eq 'Running'}
+        $JobVMBuild = Get-Job | Where-Object { $_.State -eq 'Running' }
         Write-Verbose "Working..."
         Start-Sleep -Seconds 10
     } while ($JobVMBuild)
