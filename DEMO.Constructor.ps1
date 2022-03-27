@@ -11,7 +11,7 @@
 . "C:\git\SavyUniversity\DEMO.Infra.Build.VM.ps1"
 . "C:\git\SavyUniversity\DEMO.Infra.Build.VM.Config.ps1"
 
-Connect-AzAccount
+Connect-AzAccount > $null
 $VerbosePreference = 'Continue'
 
 # VM local password creation - used to both set a local admin account on the VM creation
@@ -99,3 +99,6 @@ Write-Verbose "Virtual machine(s) completed."
 Write-Verbose "Configuring guest OS of the virtual machine(s) in resource group $ResourceGroupName..."
 Build-RSVMConfig -Credential $Credential
 Write-Verbose "Virtual machine(s) guest OS configuration completed."
+
+$FinishedPublic = $RSPublicIP.IpAddress
+Write-Output "Operation completed.  View the website now at http://$FinishedPublic/"
