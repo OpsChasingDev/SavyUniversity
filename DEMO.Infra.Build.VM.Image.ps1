@@ -1,4 +1,4 @@
-function Build-VMImage {
+function Build-RSVMImage {
     param (
         [Parameter(Mandatory)]
         [string]$ResourceGroupName,

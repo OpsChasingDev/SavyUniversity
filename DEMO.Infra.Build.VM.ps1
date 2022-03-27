@@ -21,7 +21,13 @@ function Build-RSVM {
         
         [Parameter(Mandatory,
                     ValueFromPipelineByPropertyName)]
-        [string]$Location
+        [string]$Location,
+
+        [Parameter(Mandatory)]
+        [string]$LocalAdmin,
+
+        [Parameter(Mandatory)]
+        [string]$LocalPass
     )
 
     $VerbosePreference = 'Continue'
@@ -52,8 +58,6 @@ function Build-RSVM {
         $NIC = New-AzNetworkInterface @NICSplat
 
         # construct VM local credentials
-        $LocalAdmin = "RStapleton"
-        $LocalPass = ConvertTo-SecureString "SomethingB3tt3r!@#" -AsPlainText -Force
         $Credential = New-Object -TypeName System.Management.Automation.PSCredential ($LocalAdmin,$LocalPass)
 
         # construct VM attributes
