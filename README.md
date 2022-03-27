@@ -8,8 +8,6 @@ Current endeavor involves continuously maturing the ability to create re-usable 
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
 Next objectives:
-- proof read for formatting and clean up unneeded comments
-- add brief help to each function
 - have the public IP function spit out the IP address generated to a variable for quick retrieval
 - parameterize the VNET so other environments can be spun up to run simultaneously
 - consolidate functions in the constructor script
