@@ -27,7 +27,7 @@ function Build-RSVM {
         [System.Management.Automation.PSCredential]$Credential
     )
 
-    $VerbosePreference = 'Continue'
+    # $VerbosePreference = 'Continue'
 
     # identify resource group and region
     $AvailabilitySetName = $ResourceGroupName + "_AvailabilitySet"

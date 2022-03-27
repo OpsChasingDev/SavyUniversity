@@ -5,7 +5,7 @@ function Build-RSPeer {
         [string]$ResourceGroupName
     )
 
-    $VerbosePreference = 'Continue'
+    # $VerbosePreference = 'Continue'
 
     $VNET_Target = Get-AzVirtualNetwork -ResourceGroupName $ResourceGroupName
     $VNET_Sandbox = Get-AzVirtualNetwork -ResourceGroupName 'Sandbox'
