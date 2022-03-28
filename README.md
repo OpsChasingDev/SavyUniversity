@@ -8,5 +8,6 @@ Current endeavor involves continuously maturing the ability to create re-usable 
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
 Next objectives:
+- modify cleanup script to get rid of the vnet peer in Sandbox and also remove the orphaned bootdiagnostics files in blob storage
 - parameterize the VNET so other environments can be spun up to run simultaneously
 - consolidate functions in the constructor script
