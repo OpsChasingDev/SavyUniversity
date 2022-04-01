@@ -3,7 +3,7 @@ $ResourceGroupName = 'Sandbox'
 if ($Answer -eq 'Y') {
     $VNET = Get-AzVirtualNetwork -ResourceGroupName $ResourceGroupName
     $VNETPeer = Get-AzVirtualNetworkPeering -VirtualNetworkName $VNET.Name -ResourceGroupName $ResourceGroupName
-    Remove-AzVirtualNetworkPeering -Name $VNETPeer -VirtualNetworkName $VNET.name -ResourceGroupName $ResourceGroupName
+    Remove-AzVirtualNetworkPeering -Name $VNETPeer.Name -VirtualNetworkName $VNET.Name -ResourceGroupName $ResourceGroupName
 }
     
-    Remove-AzResourceGroup -Name 'DEMO'
+Remove-AzResourceGroup -Name 'DEMO'
