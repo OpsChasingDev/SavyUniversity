@@ -1,3 +1,7 @@
+# cleans up the 'DEMO' resource group along with the remote end of the virtual network peer created in the 'Sandbox' resource group
+
+$VerbosePreference = 'Continue'
+
 $ResourceGroupName = 'DEMO'
 $RemoteResourceGroup = 'Sandbox'
 $VNET = Get-AzVirtualNetwork -ResourceGroupName $RemoteResourceGroup
