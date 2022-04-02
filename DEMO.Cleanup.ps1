@@ -6,11 +6,13 @@ $ResourceGroupName = 'DEMO'
 $RemoteResourceGroup = 'Sandbox'
 $VNET = Get-AzVirtualNetwork -ResourceGroupName $RemoteResourceGroup
 $VNETPeer = Get-AzVirtualNetworkPeering -VirtualNetworkName $VNET.Name -ResourceGroupName $RemoteResourceGroup
+$StorageAccount = 'savylabsandbox'
 
 $Answer = Read-Host "Are you sure you want to remove the resource group $ResourceGroupName and all of its components? [Y/N]"
 
 if ($Answer -eq 'Y') {
 
+    # removes remote end of VNET peer
     if ($VNETPeer) {
         Write-Verbose "Removing network peer from the remote side in $RemoteResourceGroup..."
         Remove-AzVirtualNetworkPeering -Name $VNETPeer.Name -VirtualNetworkName $VNET.Name -ResourceGroupName $RemoteResourceGroup -Force
@@ -20,6 +22,7 @@ if ($Answer -eq 'Y') {
         Write-Output "No remote network peer was found in $RemoteResourceGroup."
     }
 
+    # removes DEMO resource group in full
     $rg = Get-AzResourceGroup -Name $ResourceGroupName -ErrorAction SilentlyContinue
     if ($rg) {
         Write-Verbose "Removing resource group $ResourceGroupName.  This may take a few minutes..."
@@ -29,4 +32,10 @@ if ($Answer -eq 'Y') {
     else {
         Write-Output "No resource group called $ResourceGroupName was found."
     }
+
+    # removes bootdiagnostics containers in blob storage for the removed VMs
+    $Context = New-AzStorageContext -StorageAccountName $StorageAccount
+    $BootDiagName = 'bootdiagnostics-' + $ResourceGroupName
+    $BootDiagItem = (Get-AzStorageContainer -Context $Context | Where-Object {$_.Name -like "$BootDiagName*"}).Name
+    Remove-AzStorageContainer -Context $Context -Name $BootDiagItem -WhatIf
 }
