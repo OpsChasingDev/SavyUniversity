@@ -22,6 +22,7 @@ $Pass = ConvertTo-SecureString "$Pass" -AsPlainText -Force
 $Credential = New-Object System.Management.Automation.PSCredential($User, $Pass)
 
 $ResourceGroupName = Read-Host "Enter the name of the resource group to create"
+$SubnetPrefix = Read-Host "Enter the first 2 octets of the IP scheme to use (e.g. 192.168)"
 $Location = "eastus2"
 $VMNumber = Read-Host "Enter the number of VMs to make"
 
@@ -39,6 +40,7 @@ Write-Verbose "Creating virtual network for resource group $ResourceGroupName...
 $RSVNETSplat = @{
     ResourceGroupName = $ResourceGroupName
     Location          = $Location
+    SubnetPrefix      = $SubnetPrefix
 }
 Build-RSVNET @RSVNETSplat -OutVariable RSVNET > $null
 Write-Verbose "Virtual network completed."

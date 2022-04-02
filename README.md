@@ -9,6 +9,5 @@ None of the information here will violate the privacy or jeopardize the security
 
 Next objectives:
 - parameterize the VNET so other environments can be spun up to run simultaneously
-  - param VNET creation info
   - param VM.Config script so it knows what network addresses to reach out to
 - consolidate functions in the constructor script
