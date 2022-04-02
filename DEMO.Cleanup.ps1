@@ -2,7 +2,7 @@
 
 $VerbosePreference = 'Continue'
 
-$ResourceGroupName = 'DEMO'
+$ResourceGroupName = Read-Host "Enter the name of the resouce group to remove."
 $RemoteResourceGroup = 'Sandbox'
 $VNET = Get-AzVirtualNetwork -ResourceGroupName $RemoteResourceGroup
 $VNETPeer = Get-AzVirtualNetworkPeering -VirtualNetworkName $VNET.Name -ResourceGroupName $RemoteResourceGroup
@@ -22,7 +22,7 @@ if ($Answer -eq 'Y') {
         Write-Output "No remote network peer was found in $RemoteResourceGroup."
     }
 
-    # removes DEMO resource group in full
+    # removes all resources in the resource group
     $rg = Get-AzResourceGroup -Name $ResourceGroupName -ErrorAction SilentlyContinue
     if ($rg) {
         Write-Verbose "Removing resource group $ResourceGroupName.  This may take a few minutes..."
