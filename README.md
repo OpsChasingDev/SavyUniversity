@@ -9,4 +9,8 @@ None of the information here will violate the privacy or jeopardize the security
 
 Next objectives:
 - parameterize the VNET so other environments can be spun up to run simultaneously
+  - remove hard coding of RG and Location in the VM.Image build script
+  - param the constructor for the name of the RG
+  - param VNET creation info
+  - param VM.Config script so it knows what network addresses to reach out to
 - consolidate functions in the constructor script
