@@ -21,7 +21,7 @@ $Pass = Read-Host "Enter a Password"
 $Pass = ConvertTo-SecureString "$Pass" -AsPlainText -Force
 $Credential = New-Object System.Management.Automation.PSCredential($User, $Pass)
 
-$ResourceGroupName = "DEMO"
+$ResourceGroupName = Read-Host "Enter the name of the resource group to create"
 $Location = "eastus2"
 $VMNumber = Read-Host "Enter the number of VMs to make"
 
