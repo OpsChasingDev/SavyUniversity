@@ -99,7 +99,12 @@ Write-Verbose "Virtual machine(s) completed."
 
 ## VIRTUAL MACHINE GUEST CONFIGURATION ##
 Write-Verbose "Configuring guest OS of the virtual machine(s) in resource group $ResourceGroupName..."
-Build-RSVMConfig -Credential $Credential
+$RSVMConfigSplat = @{
+    ResourceGroupName = $ResourceGroupName
+    Credential = $Credential
+    SubnetPrefix = $SubnetPrefix    
+}
+Build-RSVMConfig @RSVMConfigSplat
 Write-Verbose "Virtual machine(s) guest OS configuration completed."
 
 $FinishedPublic = $RSPublicIP.IpAddress

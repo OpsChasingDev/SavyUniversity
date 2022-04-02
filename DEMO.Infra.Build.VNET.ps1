@@ -16,7 +16,7 @@ function Build-RSVNET {
     $NetworkName = $ResourceGroupName + "_VNET"
     $SubnetName = $ResourceGroupName + "_Subnet"
     $SubnetAddress = $SubnetPrefix + '.0.0/24'
-    $VirtualNetworkAddressPrefix = $SubnetPrefix + '0.0/16'
+    $VirtualNetworkAddressPrefix = $SubnetPrefix + '.0.0/16'
     $Subnet = New-AzVirtualNetworkSubnetConfig -Name $SubnetName -AddressPrefix $SubnetAddress
     $VirutalNetworkSplat = @{
         Name              = $NetworkName

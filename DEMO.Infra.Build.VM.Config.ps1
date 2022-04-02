@@ -2,15 +2,22 @@
 function Build-RSVMConfig {
     param (
         [Parameter(Mandatory)]
-        [System.Management.Automation.PSCredential]$Credential
+        [string]$ResourceGroupName,
+
+        [Parameter(Mandatory)]
+        [System.Management.Automation.PSCredential]$Credential,
+
+        [Parameter(Mandatory)]
+        [string]$SubnetPrefix
     )
 
-    $VMCount = (Get-AzVM -ResourceGroupName "DEMO").Count
+    $VMCount = (Get-AzVM -ResourceGroupName $ResourceGroupName).Count
     $Collection = @()
 
     for ($i = 0; $i -lt $VMCount; $i++) {
         $Octet = $i + 4
-        $Collection += "192.168.0.$Octet"
+        $IPBuild = $SubnetPrefix + ".0." + $Octet
+        $Collection += $IPBuild
     }
 
     # install web services
