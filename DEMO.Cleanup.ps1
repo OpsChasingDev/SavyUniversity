@@ -37,5 +37,7 @@ if ($Answer -eq 'Y') {
     $Context = New-AzStorageContext -StorageAccountName $StorageAccount
     $BootDiagName = 'bootdiagnostics-' + $ResourceGroupName
     $BootDiagItem = (Get-AzStorageContainer -Context $Context | Where-Object {$_.Name -like "$BootDiagName*"}).Name
-    Remove-AzStorageContainer -Context $Context -Name $BootDiagItem -WhatIf
+    foreach ($b in $BootDiagItem) {
+        Remove-AzStorageContainer -Context $Context -Name $b -Force
+    }
 }
