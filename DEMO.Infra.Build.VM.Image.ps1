@@ -6,8 +6,6 @@ function Build-RSVMImage {
         [Parameter(Mandatory)]
         [string]$Location
     )
-    $ResourceGroupName = 'DEMO'
-    $Location = 'eastus2'
     $ImageName = 'Server-2022-Core-WinRM'
     $ImageURI = 'https://savylabsandbox.blob.core.windows.net/vhdx/Server-2022-Core-WinRM-Gen1.vhd'
 
