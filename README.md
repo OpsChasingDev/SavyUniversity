@@ -8,6 +8,11 @@ Current endeavor involves continuously maturing the ability to create re-usable 
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
 Next objectives:
-- parameterize the VNET so other environments can be spun up to run simultaneously
-  - fix cleanup script so it can remove multiple vnets and bootdiag files
+- fix issue where cleanup loop removes ALL vnet peers instead of just the one belonging to the resource group
+- Resiliency and testing
+  - restrict input for the octets on the IP creation in the constructor
+  - test using resource group names with special characters
+  - test using different credentials for the VMs
+  - test the limitation of VM creation quantity
 - consolidate functions in the constructor script
+- add functionality to remove/add/replace VMs on demand

@@ -5,7 +5,8 @@ $VerbosePreference = 'Continue'
 $ResourceGroupName = Read-Host "Enter the name of the resouce group to remove."
 $RemoteResourceGroup = 'Sandbox'
 $VNET = Get-AzVirtualNetwork -ResourceGroupName $RemoteResourceGroup
-$VNETPeer = Get-AzVirtualNetworkPeering -VirtualNetworkName $VNET.Name -ResourceGroupName $RemoteResourceGroup
+$VNETPeer = Get-AzVirtualNetworkPeering -VirtualNetworkName $VNET.Name -ResourceGroupName $RemoteResourceGroup |
+    Where-Object {$_.Name -like "*$ResourceGroupName*"}
 $StorageAccount = 'savylabsandbox'
 
 $Answer = Read-Host "Are you sure you want to remove the resource group $ResourceGroupName and all of its components? [Y/N]"
@@ -14,12 +15,9 @@ if ($Answer -eq 'Y') {
 
     # removes remote end of VNET peer
     if ($VNETPeer) {
-        foreach ($v in $VNETPeer) {
-            $VNETPeerName = $v.Name
-            Write-Verbose "Removing network peer $VNETPeerName from the remote side in $RemoteResourceGroup..."
-            Remove-AzVirtualNetworkPeering -Name $VNETPeerName -VirtualNetworkName $VNET.Name -ResourceGroupName $RemoteResourceGroup -Force
-            Write-Verbose "Network peer $VNETPeerName removed from $RemoteResourceGroup."
-        }
+        Write-Verbose "Removing network peer from the remote side in $RemoteResourceGroup..."
+        Remove-AzVirtualNetworkPeering -Name $VNETPeer.Name -VirtualNetworkName $VNET.Name -ResourceGroupName $RemoteResourceGroup -Force
+        Write-Verbose "Network peer removed from $RemoteResourceGroup."
     }
     else {
         Write-Output "No remote network peer was found in $RemoteResourceGroup."
@@ -39,7 +37,7 @@ if ($Answer -eq 'Y') {
     # removes bootdiagnostics containers in blob storage for the removed VMs
     $Context = New-AzStorageContext -StorageAccountName $StorageAccount
     $BootDiagName = 'bootdiagnostics-' + $ResourceGroupName
-    $BootDiagItem = (Get-AzStorageContainer -Context $Context | Where-Object { $_.Name -like "$BootDiagName*" }).Name
+    $BootDiagItem = (Get-AzStorageContainer -Context $Context | Where-Object {$_.Name -like "$BootDiagName*"}).Name
     foreach ($b in $BootDiagItem) {
         Remove-AzStorageContainer -Context $Context -Name $b -Force
     }
