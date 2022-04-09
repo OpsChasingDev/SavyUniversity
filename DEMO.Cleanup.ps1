@@ -14,9 +14,12 @@ if ($Answer -eq 'Y') {
 
     # removes remote end of VNET peer
     if ($VNETPeer) {
-        Write-Verbose "Removing network peer from the remote side in $RemoteResourceGroup..."
-        Remove-AzVirtualNetworkPeering -Name $VNETPeer.Name -VirtualNetworkName $VNET.Name -ResourceGroupName $RemoteResourceGroup -Force
-        Write-Verbose "Network peer removed from $RemoteResourceGroup."
+        foreach ($v in $VNETPeer) {
+            $VNETPeerName = $v.Name
+            Write-Verbose "Removing network peer $VNETPeerName from the remote side in $RemoteResourceGroup..."
+            Remove-AzVirtualNetworkPeering -Name $VNETPeerName -VirtualNetworkName $VNET.Name -ResourceGroupName $RemoteResourceGroup -Force
+            Write-Verbose "Network peer $VNETPeerName removed from $RemoteResourceGroup."
+        }
     }
     else {
         Write-Output "No remote network peer was found in $RemoteResourceGroup."
