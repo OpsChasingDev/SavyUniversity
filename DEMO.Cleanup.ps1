@@ -39,7 +39,7 @@ if ($Answer -eq 'Y') {
     # removes bootdiagnostics containers in blob storage for the removed VMs
     $Context = New-AzStorageContext -StorageAccountName $StorageAccount
     $BootDiagName = 'bootdiagnostics-' + $ResourceGroupName
-    $BootDiagItem = (Get-AzStorageContainer -Context $Context | Where-Object {$_.Name -like "$BootDiagName*"}).Name
+    $BootDiagItem = (Get-AzStorageContainer -Context $Context | Where-Object { $_.Name -like "$BootDiagName*" }).Name
     foreach ($b in $BootDiagItem) {
         Remove-AzStorageContainer -Context $Context -Name $b -Force
     }
