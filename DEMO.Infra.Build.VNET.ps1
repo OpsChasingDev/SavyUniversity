@@ -9,7 +9,9 @@ function Build-RSVNET {
             ValueFromPipelineByPropertyName)]
         [string]$Location,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory,
+            HelpMessage = 'Enter the first two octets you want the subnet to have, e.g. 10.1')]
+        [ValidatePattern('^[0-9]{1,3}\.[0-9]{1,3}$')]
         [string]$SubnetPrefix
     )
 

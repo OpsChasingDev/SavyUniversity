@@ -7,7 +7,9 @@ function Build-RSVMConfig {
         [Parameter(Mandatory)]
         [System.Management.Automation.PSCredential]$Credential,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory,
+            HelpMessage = 'Enter the first two octets you want the subnet to have, e.g. 10.1')]
+        [ValidatePattern('^[0-9]{1,3}\.[0-9]{1,3}$')]
         [string]$SubnetPrefix
     )
 

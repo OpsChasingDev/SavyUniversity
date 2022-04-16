@@ -10,7 +10,6 @@ None of the information here will violate the privacy or jeopardize the security
 Next objectives:
 
 - Resiliency and testing
-  - restrict input for the octets on the IP creation in the constructor
   - test using resource group names with special characters
   - test the limitation of VM creation quantity
 - consolidate functions in the constructor script
