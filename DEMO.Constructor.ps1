@@ -18,7 +18,7 @@ $VerbosePreference = 'Continue'
 # VM local password creation - used to both set a local admin account on the VM creation
 # and provide any VM configuration scripts the credentials for remote PowerShell connections
 $User = Read-Host "Enter a Local Username"
-$Pass = Read-Host "Enter a Password"
+$Pass = Read-Host "Enter a Password" -MaskInput
 $Pass = ConvertTo-SecureString "$Pass" -AsPlainText -Force
 $Credential = New-Object System.Management.Automation.PSCredential($User, $Pass)
 
