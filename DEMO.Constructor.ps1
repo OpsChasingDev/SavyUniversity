@@ -1,3 +1,4 @@
+# NOTE: this constructor only completes successfully when run from an Azure VM at IP 10.0.0.4 that is enabled for invoking remote PowerShell on other subnets
 # The targeted final goal for a "push button" method of full infrastructure deployment
 # Comments below list the order of operations under which the infrastructure will need to be built
 
