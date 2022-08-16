@@ -110,6 +110,7 @@ if (($SubnetPrefix -match '^[0-9]{1,3}\.[0-9]{1,3}$') -eq $true) {
     Build-RSVMConfig @RSVMConfigSplat
     Write-Verbose "Virtual machine(s) guest OS configuration completed."
 
+    # public IP output when completed
     $FinishedPublic = $RSPublicIP.IpAddress
     Write-Output "Operation completed.  View the website now at http://$FinishedPublic/"
 
