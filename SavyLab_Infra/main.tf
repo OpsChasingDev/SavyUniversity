@@ -36,9 +36,6 @@ resource "azurerm_public_ip" "public_ip" {
   sku                 = "Standard"
 }
 
-#FIXME: unexpected arguments "public_ip_address_id" and "subnet_id"
-# possible fix: azurerm_nat_gateway_public_ip_association
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/nat_gateway_public_ip_association
 resource "azurerm_nat_gateway" "nat_gateway" {
   name                = "sl-nat-gateway"
   location            = var.location
@@ -46,8 +43,12 @@ resource "azurerm_nat_gateway" "nat_gateway" {
   depends_on          = [azurerm_subnet.subnet]
 }
 
-#FIXME: need azurerm_network_security_group
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group
+#FIXME: need azurerm_subnet_nat_gateway_association
+resource "azurerm_subnet_nat_gateway_association" "subnet_nat_gateway_association" {
+  subnet_id      = azurerm_subnet.subnet.id
+  nat_gateway_id = azurerm_nat_gateway.nat_gateway.id
+}
+
 resource "azurerm_network_security_group" "network_security_group" {
   name                = "sl-network-security-group"
   location            = var.location
@@ -69,13 +70,13 @@ resource "azurerm_network_security_group" "network_security_group" {
 resource "azurerm_nat_gateway_public_ip_association" "public_ip_association" {
   nat_gateway_id       = azurerm_nat_gateway.nat_gateway.id
   public_ip_address_id = azurerm_public_ip.public_ip.id
-  depends_on          = [azurerm_nat_gateway.nat_gateway]
+  depends_on           = [azurerm_nat_gateway.nat_gateway]
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
   subnet_id                 = azurerm_subnet.subnet.id
   network_security_group_id = azurerm_network_security_group.network_security_group.id
-  depends_on = [azurerm_network_security_group.network_security_group]
+  depends_on                = [azurerm_network_security_group.network_security_group]
 }
 
 output "public_ip_address" {
