@@ -1,15 +1,5 @@
 # using terraform.tfvars file in the same directory for passing the values
 
-variable "location" {
-  type    = string
-  default = "East US"
-}
-
-variable "resource_group_name" {
-  type    = string
-  default = "Savy_University"
-}
-
 provider "azurerm" {
   features {}
 }
