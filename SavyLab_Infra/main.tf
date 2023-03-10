@@ -43,7 +43,6 @@ resource "azurerm_nat_gateway" "nat_gateway" {
   depends_on          = [azurerm_subnet.subnet]
 }
 
-#FIXME: need azurerm_subnet_nat_gateway_association
 resource "azurerm_subnet_nat_gateway_association" "subnet_nat_gateway_association" {
   subnet_id      = azurerm_subnet.subnet.id
   nat_gateway_id = azurerm_nat_gateway.nat_gateway.id
