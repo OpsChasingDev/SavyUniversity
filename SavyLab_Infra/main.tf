@@ -45,6 +45,10 @@ resource "azurerm_nat_gateway" "nat_gateway" {
   depends_on          = [azurerm_subnet.subnet]
 }
 
+#FIXME: need azurerm_network_security_group
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group
+
+
 resource "azurerm_nat_gateway_public_ip_association" "public_ip_association" {
   nat_gateway_id       = azurerm_nat_gateway.nat_gateway.id
   public_ip_address_id = azurerm_public_ip.public_ip.id
