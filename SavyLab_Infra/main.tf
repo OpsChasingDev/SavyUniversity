@@ -42,9 +42,13 @@ resource "azurerm_nat_gateway" "nat_gateway" {
   name                = "sl-nat-gateway"
   location            = var.location
   resource_group_name = var.resource_group_name
-  public_ip_address_id = azurerm_public_ip.public_ip.id
-  subnet_id           = azurerm_subnet.subnet.id
   depends_on          = [azurerm_subnet.subnet]
+}
+
+resource "azurerm_nat_gateway_public_ip_association" "public_ip_association" {
+  nat_gateway_id       = azurerm_nat_gateway.nat_gateway.id
+  public_ip_address_id = azurerm_public_ip.public_ip.id
+  depends_on          = [azurerm_nat_gateway.nat_gateway]
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
