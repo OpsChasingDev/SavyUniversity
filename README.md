@@ -14,3 +14,10 @@ Next objectives:
   - test the limitation of VM creation quantity
 - consolidate functions in the constructor script
 - add functionality to remove/add/replace VMs on demand
+
+## SavyLab Infrastructure
+
+Infra can be created by running the below inside the "SavyLab_Infra" folder:
+```
+terraform apply --auto-approve
+```
