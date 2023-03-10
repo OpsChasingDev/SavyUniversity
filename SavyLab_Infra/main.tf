@@ -1,3 +1,5 @@
+# using terraform.tfvars file in the same directory for passing the values
+
 variable "location" {
   type    = string
   default = "East US"
