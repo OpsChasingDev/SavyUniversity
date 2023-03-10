@@ -36,6 +36,8 @@ resource "azurerm_public_ip" "public_ip" {
 }
 
 #FIXME: unexpected arguments "public_ip_address_id" and "subnet_id"
+# possible fix: azurerm_nat_gateway_public_ip_association
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/nat_gateway_public_ip_association
 resource "azurerm_nat_gateway" "nat_gateway" {
   name                = "sl-nat-gateway"
   location            = var.location
