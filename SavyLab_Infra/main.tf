@@ -35,6 +35,7 @@ resource "azurerm_public_ip" "public_ip" {
   allocation_method   = "Static"
 }
 
+#FIXME: unexpected arguments "public_ip_address_id" and "subnet_id"
 resource "azurerm_nat_gateway" "nat_gateway" {
   name                = "sl-nat-gateway"
   location            = var.location
