@@ -97,6 +97,8 @@ resource "azurerm_windows_virtual_machine" "vm" {
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic.id]
   size                  = "Standard_F2"
+  admin_username        = "savy"
+  admin_password        = "Savy@123"
 
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
@@ -108,15 +110,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
   os_disk {
     name              = "myOsDisk"
     caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Premium_LRS"
     storage_account_type = "Standard_LRS"
-  }
-
-  os_profile {
-    computer_name  = "sl-vm"
-    admin_username = "adminuser"
-    admin_password = "P@ssword1234!"
   }
 }
 
