@@ -145,6 +145,7 @@ resource "null_resource" "open_WinRM" {
       "Enable-PSRemoting -SkipNetworkProfileCheck -Force",
       "Set-Item -Path WSMan:\\localhost\\Service\\AllowUnencrypted -Value true",
       "Set-Item -Path WSMan:\\localhost\\Service\\Auth\\Basic -Value true",
+      "Set-Item wsman:\\localhost\\Client\\TrustedHosts -value * -Force"
     ]
 
     connection {
