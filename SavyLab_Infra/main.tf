@@ -29,7 +29,15 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_public_ip" "public_ip_gateway" {
-  name                = "sl-public-ip"
+  name                = "sl-public-ip-gateway"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_public_ip" "public_ip_server" {
+  name                = "sl-public-ip-server"
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Static"
@@ -87,6 +95,7 @@ resource "azurerm_network_interface" "nic" {
     name                          = "nicconfig"
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_allocation  = azurerm_public_ip.public_ip_server.id
   }
 }
 
