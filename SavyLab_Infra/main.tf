@@ -142,7 +142,6 @@ resource "null_resource" "open_WinRM" {
       password = var.vm_password
       host     = azurerm_public_ip.public_ip_server.ip_address
       insecure = true
-      use_ntlm = true
       timeout  = "1m"
     }
   }
