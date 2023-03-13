@@ -2,6 +2,8 @@ variable "location" {}
 variable "resource_group_name" {}
 variable "vnet_address_space" {}
 variable "subnet_address_prefix" {}
+variable "vm_username" {}
+variable "vm_password" {}
 
 provider "azurerm" {
   features {}
@@ -98,8 +100,8 @@ resource "azurerm_windows_virtual_machine" "vm" {
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic.id]
   size                  = "Standard_F2"
-  admin_username        = "savy"
-  admin_password        = "Savy@123"
+  admin_username        = var.vm_username
+  admin_password        = var.vm_password
 
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
