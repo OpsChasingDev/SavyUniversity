@@ -122,6 +122,10 @@ resource "azurerm_windows_virtual_machine" "vm" {
   }
 }
 
-output "public_ip_address" {
+output "gateway_public_ip_address" {
   value = azurerm_public_ip.public_ip_gateway.ip_address
+}
+
+output "server_public_ip_address" {
+  value = azurerm_public_ip.public_ip_server.ip_address
 }
