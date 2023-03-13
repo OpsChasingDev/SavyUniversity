@@ -78,6 +78,68 @@ resource "azurerm_subnet_network_security_group_association" "subnet_nsg_associa
   depends_on                = [azurerm_network_security_group.network_security_group]
 }
 
+resource "azurerm_network_interface" "nic" {
+  name                = "sl-nic"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  ip_configuration {
+    name                          = "nicconfig"
+    subnet_id                     = azurerm_subnet.subnet.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.public_ip.id
+  }
+}
+
+resource "azurerm_windows_virtual_machine" "vm" {
+  name                  = "sl-vm"
+  location              = var.location
+  resource_group_name   = var.resource_group_name
+  network_interface_ids = [azurerm_network_interface.nic.id]
+  size                  = "Standard_B1ls"
+
+  storage_image_reference {
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2019-Datacenter"
+    version   = "latest"
+  }
+
+  storage_os_disk {
+    name              = "myOsDisk"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Premium_LRS"
+  }
+
+  os_profile {
+    computer_name  = "sl-vm"
+    admin_username = "adminuser"
+    admin_password = "P@ssword1234!"
+  }
+
+  os_profile_windows_config {
+    enable_automatic_upgrades = true
+  }
+
+  boot_diagnostics {
+    storage_account_uri = azurerm_storage_account.storage_account.primary_blob_endpoint
+  }
+}
+
+resource "azurerm_storage_account" "storage_account" {
+  name                     = "slstorageaccount${random_integer.random.result}"
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  tags = {
+    environment = "development"
+  }
+}
+
+
 output "public_ip_address" {
   value = azurerm_public_ip.public_ip.ip_address
 }
