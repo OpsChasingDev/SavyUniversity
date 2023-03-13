@@ -1,5 +1,7 @@
 variable "location" {}
 variable "resource_group_name" {}
+variable "vnet_address_space" {}
+variable "subnet_address_prefix" {}
 
 provider "azurerm" {
   features {}
@@ -7,7 +9,7 @@ provider "azurerm" {
 
 resource "azurerm_virtual_network" "vnet" {
   name                = "sl-vnet"
-  address_space       = ["10.250.0.0/16"]
+  address_space       = var.vnet_address_space
   location            = var.location
   resource_group_name = var.resource_group_name
 }
@@ -16,7 +18,7 @@ resource "azurerm_subnet" "subnet" {
   name                 = "sl-subnet"
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.250.1.0/24"]
+  address_prefixes     = var.subnet_address_prefix
 }
 
 resource "azurerm_public_ip" "public_ip_gateway" {
