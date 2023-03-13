@@ -144,7 +144,6 @@ resource "null_resource" "open_WinRM" {
       insecure    = true
       use_ntlm    = true
       timeout     = "1m"
-      max_retries = 10
     }
   }
 }
