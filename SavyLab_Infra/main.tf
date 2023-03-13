@@ -143,6 +143,7 @@ resource "null_resource" "open_WinRM" {
       host     = azurerm_public_ip.public_ip_server.ip_address
       insecure = true
       timeout  = "1m"
+      port     = 5985
     }
   }
 }
