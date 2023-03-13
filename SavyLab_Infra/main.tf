@@ -144,7 +144,7 @@ resource "null_resource" "open_WinRM" {
       "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force",
       "Enable-PSRemoting -SkipNetworkProfileCheck -Force",
       "Set-Item -Path WSMan:\\localhost\\Service\\AllowUnencrypted -Value true",
-      "Set-Item -Path WSMan:\\localhost\\Service\\Auth\\Basic -Value true",
+      "Set-NetFirewallRule -DisplayName 'Windows Remote Management (HTTP-In)' -RemoteAddress Internet",
       "Set-Item wsman:\\localhost\\Client\\TrustedHosts -value * -Force"
     ]
 
