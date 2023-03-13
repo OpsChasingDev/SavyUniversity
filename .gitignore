@@ -1,2 +1,3 @@
 SavyLab_Infra/.terraform*
 SavyLab_Infra/terraform.tfstate*
+SavyLab_Infra/*.tfvars
