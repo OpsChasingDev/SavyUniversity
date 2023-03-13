@@ -137,13 +137,13 @@ resource "null_resource" "open_WinRM" {
     ]
 
     connection {
-      type        = "winrm"
-      user        = var.vm_username
-      password    = var.vm_password
-      host        = azurerm_public_ip.public_ip_server.ip_address
-      insecure    = true
-      use_ntlm    = true
-      timeout     = "1m"
+      type     = "winrm"
+      user     = var.vm_username
+      password = var.vm_password
+      host     = azurerm_public_ip.public_ip_server.ip_address
+      insecure = true
+      use_ntlm = true
+      timeout  = "1m"
     }
   }
 }
@@ -152,6 +152,6 @@ resource "null_resource" "ansible" {
   depends_on = [azurerm_windows_virtual_machine.vm]
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${azurerm_public_ip.public_ip_server.ip_address},' playbook.yml"
+    command = "ansible-playbook -i '${azurerm_public_ip.public_ip_server.ip_address},' playbook.yaml"
   }
 }
