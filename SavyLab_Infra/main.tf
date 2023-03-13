@@ -1,12 +1,5 @@
-variable "location" {
-  type    = string
-  default = "East US"
-}
-
-variable "resource_group_name" {
-  type    = string
-  default = "Savy_University"
-}
+variable "location" {}
+variable "resource_group_name" {}
 
 provider "azurerm" {
   features {}
@@ -93,7 +86,7 @@ resource "azurerm_network_interface" "nic" {
     name                          = "nicconfig"
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id  = azurerm_public_ip.public_ip_server.id
+    public_ip_address_id          = azurerm_public_ip.public_ip_server.id
   }
 }
 
@@ -114,8 +107,8 @@ resource "azurerm_windows_virtual_machine" "vm" {
   }
 
   os_disk {
-    name              = "myOsDisk"
-    caching           = "ReadWrite"
+    name                 = "myOsDisk"
+    caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 }
