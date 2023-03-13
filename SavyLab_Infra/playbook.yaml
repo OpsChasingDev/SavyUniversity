@@ -1,0 +1,14 @@
+---
+- name: Test Playbook
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Install IIS
+      win_feature:
+        name: Web-Server
+        state: present
+    - name: Start IIS service
+      win_service:
+        name: W3SVC
+        start_mode: auto
+        state: started
