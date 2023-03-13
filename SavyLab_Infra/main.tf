@@ -96,9 +96,9 @@ resource "azurerm_windows_virtual_machine" "vm" {
   location              = var.location
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic.id]
-  size                  = "Standard_B1ls"
+  size                  = "Standard_F2"
 
-  storage_image_reference {
+  source_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
     sku       = "2019-Datacenter"
@@ -110,16 +110,13 @@ resource "azurerm_windows_virtual_machine" "vm" {
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Premium_LRS"
+    storage_account_type = "Standard_LRS"
   }
 
   os_profile {
     computer_name  = "sl-vm"
     admin_username = "adminuser"
     admin_password = "P@ssword1234!"
-  }
-
-  os_profile_windows_config {
-    enable_automatic_upgrades = true
   }
 }
 
