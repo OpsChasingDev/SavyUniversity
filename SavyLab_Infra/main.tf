@@ -69,7 +69,7 @@ resource "azurerm_network_security_group" "network_security_group" {
   }
   security_rule {
     name                       = "WinRM"
-    priority                   = 95
+    priority                   = 105
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
