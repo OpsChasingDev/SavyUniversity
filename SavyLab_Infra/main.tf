@@ -121,22 +121,6 @@ resource "azurerm_windows_virtual_machine" "vm" {
   os_profile_windows_config {
     enable_automatic_upgrades = true
   }
-
-  boot_diagnostics {
-    storage_account_uri = azurerm_storage_account.storage_account.primary_blob_endpoint
-  }
-}
-
-resource "azurerm_storage_account" "storage_account" {
-  name                     = "slstorageaccount${random_integer.random.result}"
-  resource_group_name      = var.resource_group_name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-
-  tags = {
-    environment = "development"
-  }
 }
 
 output "public_ip_address" {
