@@ -124,3 +124,11 @@ output "gateway_public_ip_address" {
 output "server_public_ip_address" {
   value = azurerm_public_ip.public_ip_server.ip_address
 }
+
+resource "null_resource" "ansible" {
+  depends_on = [azurerm_windows_virtual_machine.vm]
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -i '${azurerm_windows_virtual_machine.vm.public_ip},' playbook.yml"
+  }
+}
