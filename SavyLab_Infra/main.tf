@@ -105,7 +105,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
     version   = "latest"
   }
 
-  storage_os_disk {
+  os_disk {
     name              = "myOsDisk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
