@@ -81,7 +81,11 @@
       ```PowerShell
       Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value True
       ```
-   6. 
+   6. Allow unencrypted traffic (using http)
+      ```PowerShell
+      Set-Item -Path WSMan:\localhost\Service\AllowUnencrypted -Value True
+      ```
+   7. 
 
 
 ## References
