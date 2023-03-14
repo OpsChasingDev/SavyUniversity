@@ -2,4 +2,10 @@
 
 
 [all:vars]
-remote_tmp = C:\Users\savy\Tmp become_method = runas ansible_shell_type = powershell shell_type = powershell
+ansible_user=savy
+ansible_password="Savy@123"
+ansible_port=5985
+ansible_connection=winrm
+ansible_winrm_scheme=http
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_kerberos_delegation=true
