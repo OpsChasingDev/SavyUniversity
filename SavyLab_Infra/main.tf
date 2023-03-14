@@ -156,7 +156,7 @@ resource "null_resource" "open_WinRM" {
       "Enable-PSRemoting -SkipNetworkProfileCheck -Force",
       "Set-Item -Path WSMan:\\localhost\\Service\\AllowUnencrypted -Value true",
       "Set-NetFirewallRule -DisplayName 'Windows Remote Management (HTTP-In)' -RemoteAddress Internet",
-      "Set-Item wsman:\\localhost\\Client\\TrustedHosts -value * -Force"
+      "Set-Item wsman:\\localhost\\Client\\TrustedHosts -Value * -Force"
     ]
 
     connection {
