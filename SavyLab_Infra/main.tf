@@ -148,17 +148,15 @@ output "server_public_ip_address" {
 }
 
 resource "null_resource" "ansible_dynamic_inventory" {
-  depends_on = [azurerm_windows_virtual_machine.vm]
   depends_on = [azurerm_public_ip.public_ip_server]
 
   provisioner "local-exec" {
-    command = "echo '[all]\n${terraform output server_public_ip_address}' > hosts"
+    command = "echo '[all]\n$${terraform output server_public_ip_address}' > hosts"
   }
 }
 
 resource "null_resource" "ansible" {
   depends_on = [azurerm_windows_virtual_machine.vm]
-  depends_on = [null_resource.ansible_dynamic_inventory]
 
   provisioner "local-exec" {
     command = "ansible-playbook -i hosts playbook.yaml"
