@@ -73,7 +73,11 @@
       ```PowerShell
       [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
       ```
-   4. 
+   4. Run WinRM setup
+      ```PowerShell
+      winrm quickconfig -force
+      ```
+   5. 
 
 
 ## References
