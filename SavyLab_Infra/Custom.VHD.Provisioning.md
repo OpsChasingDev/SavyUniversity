@@ -18,9 +18,14 @@
        Set-NetFirewallRule -DisplayName 'Windows Remote Management (HTTP-In)' -RemoteAddress Internet;
        Set-Item wsman:\\localhost\\Client\\TrustedHosts -Value * -Force
        ```
+3. Add a wildcard to TrustedHosts for your provisioning controller machine.  While this is generally unsafe to do, it will ensure that any public IP provisioned for the VMs being built will be contactable from the system running the provisioning scripts over WinRM.
+   ```PowerShell
+   Set-Item wsman:\localhost\Client\TrustedHosts -Value *
+   ```
 
 ## References
 - [Preparing Image for Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image)
 - [Uploading Image to  Azure](https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sa-upload-generalized)
 - [Creating Managed Image from Upload](https://www.c-sharpcorner.com/article/creating-an-azure-vm-from-the-vhdxvhd-file/)
 - [Video](https://www.youtube.com/watch?v=_b5T-dPpd00)
+- [WinRM on Workgroup](https://woshub.com/using-psremoting-winrm-non-domain-workgroup/)
