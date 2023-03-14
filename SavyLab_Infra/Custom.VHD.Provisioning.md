@@ -73,3 +73,4 @@
 - [OpenSSH Server on Windows](https://woshub.com/connect-to-windows-via-ssh/)
 - [Public Key Auth on Windows](https://woshub.com/using-ssh-key-based-authentication-on-windows/)
 - [Ansible Docs WinRM on Windows](https://docs.ansible.com/ansible/latest/os_guide/windows_setup.html#setup-winrm-listener)
+- [Video](https://www.youtube.com/watch?v=aPN18jLRkJI)
