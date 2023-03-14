@@ -77,7 +77,11 @@
       ```PowerShell
       winrm quickconfig -force
       ```
-   5. 
+   5. Enable basic auth to WinRM
+      ```PowerShell
+      Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value True
+      ```
+   6. 
 
 
 ## References
