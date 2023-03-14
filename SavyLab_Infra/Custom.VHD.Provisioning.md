@@ -27,7 +27,8 @@
       ```PowerShell
       Set-Item -Path WSMan:\localhost\Service\AllowUnencrypted -Value True
       ```
-   7. Ansible will now be able to run plays on the target windows host with the below config set in the inventory file:
+   7. Configure the public-scope "Windows Remote Management (HTTP-In)" firewall rule to allow connections from Any IP address
+   8. Ansible will now be able to run plays on the target windows host with the below config set in the inventory file:
       ```Bash
       [all:vars]
       ansible_user="username"
