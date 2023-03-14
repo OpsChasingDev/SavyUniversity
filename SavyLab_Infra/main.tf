@@ -158,8 +158,9 @@ resource "null_resource" "ansible_dynamic_inventory" {
 
 resource "null_resource" "ansible" {
   depends_on = [azurerm_windows_virtual_machine.vm]
+  depends_on = [null_resource.ansible_dynamic_inventory]
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${azurerm_public_ip.public_ip_server.ip_address},' playbook.yaml"
+    command = "ansible-playbook -i hosts playbook.yaml"
   }
 }
