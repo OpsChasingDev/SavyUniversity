@@ -147,30 +147,6 @@ output "server_public_ip_address" {
   value = azurerm_public_ip.public_ip_server.ip_address
 }
 
-resource "null_resource" "open_WinRM" {
-  depends_on = [azurerm_windows_virtual_machine.vm]
-
-  provisioner "remote-exec" {
-    inline = [
-      "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force",
-      "Enable-PSRemoting -SkipNetworkProfileCheck -Force",
-      "Set-Item -Path WSMan:\\localhost\\Service\\AllowUnencrypted -Value true",
-      "Set-NetFirewallRule -DisplayName 'Windows Remote Management (HTTP-In)' -RemoteAddress Internet",
-      "Set-Item wsman:\\localhost\\Client\\TrustedHosts -Value * -Force"
-    ]
-
-    connection {
-      type     = "winrm"
-      user     = var.vm_username
-      password = var.vm_password
-      host     = azurerm_public_ip.public_ip_server.ip_address
-      insecure = true
-      timeout  = "1m"
-      port     = 5985
-    }
-  }
-}
-
 resource "null_resource" "ansible" {
   depends_on = [azurerm_windows_virtual_machine.vm]
 
