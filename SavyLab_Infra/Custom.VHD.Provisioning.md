@@ -62,6 +62,18 @@
 
 ## Alternative Steps for Configuring Ansible for WinRM on Windows Target Host
 
+1. Create Hyper-V VM using Generation 1 and a single, fixed disk
+2. Configure guest OS appropriately for allowing public connectivity for automated configuration tools
+   1. Allow RDP using sconfig
+   2. Open inbound ICMP traffic for ping replies
+       ```PowerShell
+       New-NetFirewallRule -DisplayName "Allow ICMPv4-In" -Direction Inbound -Protocol ICMPv4 -Action Allow
+       ```
+   3. Set the default TLS version to 1.2
+      ```PowerShell
+      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+      ```
+   4. 
 
 
 ## References
