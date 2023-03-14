@@ -47,6 +47,14 @@
       msiexec /i $HOME\Downloads\OpenSSH-Win64-v8.9.1.0.msi
       ```
    4. Copy the contents of the public key to a new file called "C:\Windows\ProgramData\ssh\administrators_authorized_keys" in the image
+   5. PowerShell can now be invoked on the remote computer using SSH as the carrier such as the below example from the help file of Invoke-Command:
+      ```PowerShell
+      # Example 21: Run a script file on multiple remote computers using SSH as a job
+          $sshConnections =
+          @{ HostName="WinServer1"; UserName="Domain\UserA"; KeyFilePath="C:\Users\UserA\id_rsa" },
+          @{ HostName="UserB@LinuxServer5"; KeyFilePath="/Users/UserB/id_rsa" }
+          $results = Invoke-Command -FilePath c:\Scripts\CollectEvents.ps1 -SSHConnection $sshConnections
+      ```
 
 
 ## References
