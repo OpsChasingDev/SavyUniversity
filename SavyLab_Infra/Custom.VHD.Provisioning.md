@@ -55,6 +55,13 @@
           @{ HostName="UserB@LinuxServer5"; KeyFilePath="/Users/UserB/id_rsa" }
           $results = Invoke-Command -FilePath c:\Scripts\CollectEvents.ps1 -SSHConnection $sshConnections
       ```
+      PowerShell commands can also be run by using SSH directly:
+      ```Bash
+      ssh savy@13.92.121.68 'PowerShell "Get-Host"'
+      ```
+
+## Alternative Steps for Configuring Ansible for WinRM on Windows Target Host
+
 
 
 ## References
@@ -65,3 +72,4 @@
 - [WinRM on Workgroup](https://woshub.com/using-psremoting-winrm-non-domain-workgroup/)
 - [OpenSSH Server on Windows](https://woshub.com/connect-to-windows-via-ssh/)
 - [Public Key Auth on Windows](https://woshub.com/using-ssh-key-based-authentication-on-windows/)
+- [Ansible Docs WinRM on Windows](https://docs.ansible.com/ansible/latest/os_guide/windows_setup.html#setup-winrm-listener)
