@@ -151,7 +151,7 @@ resource "null_resource" "ansible_dynamic_inventory" {
   depends_on = [azurerm_public_ip.public_ip_server]
 
   provisioner "local-exec" {
-    command = "sed -i '2s/.*/$${terraform output server_public_ip_address}/' hosts"
+    command = "sed -i '2s/.*/${azurerm_public_ip.public_ip_server.ip_address}/' hosts"
   }
 }
 
