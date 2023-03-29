@@ -69,11 +69,7 @@ resource "azurerm_network_security_group" "network_security_group" {
   }
   security_rule {
     name                       = "WinRM"
-<<<<<<< HEAD
-    priority                   = 110
-=======
     priority                   = 105
->>>>>>> run-ansible-playbook-on-newly-provisioned-server
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -84,11 +80,7 @@ resource "azurerm_network_security_group" "network_security_group" {
   }
   security_rule {
     name                       = "SSH"
-<<<<<<< HEAD
-    priority                   = 120
-=======
     priority                   = 110
->>>>>>> run-ansible-playbook-on-newly-provisioned-server
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
