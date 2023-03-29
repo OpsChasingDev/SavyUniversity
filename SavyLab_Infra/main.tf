@@ -69,7 +69,11 @@ resource "azurerm_network_security_group" "network_security_group" {
   }
   security_rule {
     name                       = "WinRM"
+<<<<<<< HEAD
     priority                   = 110
+=======
+    priority                   = 105
+>>>>>>> run-ansible-playbook-on-newly-provisioned-server
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -80,7 +84,11 @@ resource "azurerm_network_security_group" "network_security_group" {
   }
   security_rule {
     name                       = "SSH"
+<<<<<<< HEAD
     priority                   = 120
+=======
+    priority                   = 110
+>>>>>>> run-ansible-playbook-on-newly-provisioned-server
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -145,4 +153,20 @@ output "gateway_public_ip_address" {
 
 output "server_public_ip_address" {
   value = azurerm_public_ip.public_ip_server.ip_address
+}
+
+resource "null_resource" "ansible_dynamic_inventory" {
+  depends_on = [azurerm_public_ip.public_ip_server]
+
+  provisioner "local-exec" {
+    command = "sed -i '2s/.*/${azurerm_public_ip.public_ip_server.ip_address}/' hosts"
+  }
+}
+
+resource "null_resource" "ansible" {
+  depends_on = [azurerm_windows_virtual_machine.vm]
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -i hosts playbook.yaml"
+  }
 }

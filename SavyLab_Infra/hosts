@@ -1,0 +1,11 @@
+[all]
+20.172.156.74
+
+[all:vars]
+ansible_user=savy
+ansible_password="Savy@123"
+ansible_port=5985
+ansible_connection=winrm
+ansible_winrm_scheme=http
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_kerberos_delegation=true
