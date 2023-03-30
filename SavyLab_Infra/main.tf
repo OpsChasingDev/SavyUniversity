@@ -116,8 +116,31 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
-resource "azurerm_windows_virtual_machine" "vm" {
-  name                  = "sl-vm"
+# resource "azurerm_windows_virtual_machine" "vm" {
+#   name                  = "sl-vm"
+#   location              = var.location
+#   resource_group_name   = var.resource_group_name
+#   network_interface_ids = [azurerm_network_interface.nic.id]
+#   size                  = "Standard_F2"
+#   admin_username        = var.vm_username
+#   admin_password        = var.vm_password
+
+#   source_image_reference {
+#     publisher = "MicrosoftWindowsServer"
+#     offer     = "WindowsServer"
+#     sku       = "2019-Datacenter"
+#     version   = "latest"
+#   }
+
+#   os_disk {
+#     name                 = "myOsDisk"
+#     caching              = "ReadWrite"
+#     storage_account_type = "Standard_LRS"
+#   }
+# }
+
+resource "azurerm_virtual_machine" "vm" {
+  name                  = "sl-vm2"
   location              = var.location
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic.id]
@@ -125,17 +148,21 @@ resource "azurerm_windows_virtual_machine" "vm" {
   admin_username        = var.vm_username
   admin_password        = var.vm_password
 
-  source_image_reference {
-    publisher = "MicrosoftWindowsServer"
-    offer     = "WindowsServer"
-    sku       = "2019-Datacenter"
-    version   = "latest"
+  storage_os_disk {
+    name              = "myOsDisk"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
   }
+}
 
+resource "azurerm_image" "image" {
+  name                = "sl-image"
+  location            = var.location
+  resource_group_name = var.resource_group_name
   os_disk {
-    name                 = "myOsDisk"
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
+    os_type  = "Windows"
+    os_state = "Generalized"
+    blob_uri = azurerm_virtual_machine.vm.storage_os_disk[0].vhd_uri
   }
 }
 
