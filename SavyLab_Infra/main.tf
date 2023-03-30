@@ -139,22 +139,6 @@ resource "azurerm_network_interface" "nic" {
 #   }
 # }
 
-resource "azurerm_virtual_machine" "vm" {
-  name                  = "sl-vm2"
-  location              = var.location
-  resource_group_name   = var.resource_group_name
-  network_interface_ids = [azurerm_network_interface.nic.id]
-  size                  = "Standard_F2"
-  admin_username        = var.vm_username
-  admin_password        = var.vm_password
-
-  storage_os_disk {
-    name              = "myOsDisk"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
-  }
-}
-
 resource "azurerm_image" "image" {
   name                = "sl-image"
   location            = var.location
@@ -162,8 +146,42 @@ resource "azurerm_image" "image" {
   os_disk {
     os_type  = "Windows"
     os_state = "Generalized"
-    blob_uri = azurerm_virtual_machine.vm.storage_os_disk[0].vhd_uri
+    blob_uri = "https://savyunistorage.blob.core.windows.net/vhd/Server2019Core-v1.vhd"
+    size_gb  = 30
   }
+}
+
+resource "azurerm_virtual_machine" "vm" {
+  name                  = "sl-vm"
+  location              = var.location
+  resource_group_name   = var.resource_group_name
+  network_interface_ids = [azurerm_network_interface.nic.id]
+  vm_size               = "Standard_F2"
+
+  storage_image_reference {
+    id = azurerm_image.image.id
+  }
+
+  storage_os_disk {
+    name              = "myOsDisk"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
+
+  os_profile {
+    computer_name  = "sl-vm"
+    admin_username = var.vm_username
+    admin_password = var.vm_password
+  }
+
+  os_profile_windows_config {
+    enable_automatic_upgrades = false
+    timezone                  = "Eastern Standard Time"
+  }
+
+  delete_os_disk_on_termination = true
+  depends_on                    = [azurerm_image.image]
 }
 
 output "gateway_public_ip_address" {
@@ -183,7 +201,7 @@ resource "null_resource" "ansible_dynamic_inventory" {
 }
 
 resource "null_resource" "ansible" {
-  depends_on = [azurerm_windows_virtual_machine.vm]
+  depends_on = [azurerm_virtual_machine.vm]
 
   provisioner "local-exec" {
     command = "ansible-playbook -i hosts playbook.yaml"
