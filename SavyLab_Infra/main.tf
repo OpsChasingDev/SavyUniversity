@@ -177,8 +177,14 @@ resource "null_resource" "ansible_dynamic_inventory" {
   }
 }
 
-resource "null_resource" "ansible" {
+resource "time_sleep" "ansible_delay" {
   depends_on = [azurerm_virtual_machine.vm]
+
+  create_duration = "30s"
+}
+
+resource "null_resource" "ansible" {
+  depends_on = [time_sleep.ansible_delay]
 
   provisioner "local-exec" {
     command = "ansible-playbook -i hosts playbook.yaml"
