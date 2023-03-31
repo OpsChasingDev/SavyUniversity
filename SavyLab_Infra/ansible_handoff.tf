@@ -1,3 +1,5 @@
+// adjust ansible inventory and configure VM guest OS
+
 resource "null_resource" "ansible_dynamic_inventory" {
   depends_on = [azurerm_public_ip.public_ip_server]
 

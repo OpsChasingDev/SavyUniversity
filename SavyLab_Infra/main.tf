@@ -1,3 +1,5 @@
+// main config file for VM creation and output of public IP addresses
+
 variable "location" {}
 variable "resource_group_name" {}
 variable "vnet_address_space" {}

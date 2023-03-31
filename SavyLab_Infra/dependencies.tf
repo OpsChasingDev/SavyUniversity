@@ -1,3 +1,5 @@
+// creates all dependencies for the VM
+
 resource "azurerm_virtual_network" "vnet" {
   name                = "sl-vnet"
   address_space       = var.vnet_address_space
