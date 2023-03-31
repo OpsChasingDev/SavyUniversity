@@ -1,19 +1,5 @@
 // creates all dependencies for the VM
 
-# resource "azurerm_virtual_network" "vnet" {
-#   name                = "sl-vnet"
-#   address_space       = var.vnet_address_space
-#   location            = var.location
-#   resource_group_name = var.resource_group_name
-# }
-
-# resource "azurerm_subnet" "subnet" {
-#   name                 = "sl-subnet"
-#   resource_group_name  = var.resource_group_name
-#   virtual_network_name = azurerm_virtual_network.vnet.name
-#   address_prefixes     = var.subnet_address_prefix
-# }
-
 data "azurerm_subnet" "subnet" {
   name                 = var.existing_subnet_name
   resource_group_name  = var.resource_group_name
@@ -40,7 +26,7 @@ resource "azurerm_nat_gateway" "nat_gateway" {
   name                = "sl-nat-gateway"
   location            = var.location
   resource_group_name = var.resource_group_name
-  depends_on          = [azurerm_subnet.subnet]
+  depends_on          = [data.azurerm_subnet.subnet]
 }
 
 resource "azurerm_subnet_nat_gateway_association" "subnet_nat_gateway_association" {
