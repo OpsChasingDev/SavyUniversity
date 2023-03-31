@@ -2,6 +2,8 @@
 
 variable "location" {}
 variable "resource_group_name" {}
+variable "existing_vnet_name" {}
+variable "existing_subnet_name" {}
 variable "vnet_address_space" {}
 variable "subnet_address_prefix" {}
 variable "vm_username" {}

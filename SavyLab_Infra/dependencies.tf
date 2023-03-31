@@ -1,17 +1,23 @@
 // creates all dependencies for the VM
 
-resource "azurerm_virtual_network" "vnet" {
-  name                = "sl-vnet"
-  address_space       = var.vnet_address_space
-  location            = var.location
-  resource_group_name = var.resource_group_name
-}
+# resource "azurerm_virtual_network" "vnet" {
+#   name                = "sl-vnet"
+#   address_space       = var.vnet_address_space
+#   location            = var.location
+#   resource_group_name = var.resource_group_name
+# }
 
-resource "azurerm_subnet" "subnet" {
-  name                 = "sl-subnet"
+# resource "azurerm_subnet" "subnet" {
+#   name                 = "sl-subnet"
+#   resource_group_name  = var.resource_group_name
+#   virtual_network_name = azurerm_virtual_network.vnet.name
+#   address_prefixes     = var.subnet_address_prefix
+# }
+
+data "azurerm_subnet" "subnet" {
+  name                 = var.existing_subnet_name
   resource_group_name  = var.resource_group_name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = var.subnet_address_prefix
+  virtual_network_name = var.existing_vnet_name
 }
 
 resource "azurerm_public_ip" "public_ip_gateway" {
@@ -38,7 +44,7 @@ resource "azurerm_nat_gateway" "nat_gateway" {
 }
 
 resource "azurerm_subnet_nat_gateway_association" "subnet_nat_gateway_association" {
-  subnet_id      = azurerm_subnet.subnet.id
+  subnet_id      = data.azurerm_subnet.subnet.id
   nat_gateway_id = azurerm_nat_gateway.nat_gateway.id
 }
 
@@ -89,7 +95,7 @@ resource "azurerm_nat_gateway_public_ip_association" "public_ip_association" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
-  subnet_id                 = azurerm_subnet.subnet.id
+  subnet_id                 = data.azurerm_subnet.subnet.id
   network_security_group_id = azurerm_network_security_group.network_security_group.id
   depends_on                = [azurerm_network_security_group.network_security_group]
 }
@@ -101,7 +107,7 @@ resource "azurerm_network_interface" "nic" {
 
   ip_configuration {
     name                          = "nicconfig"
-    subnet_id                     = azurerm_subnet.subnet.id
+    subnet_id                     = data.azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.public_ip_server.id
   }
