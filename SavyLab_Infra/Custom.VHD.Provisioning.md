@@ -43,6 +43,18 @@
       ansible_winrm_kerberos_delegation=true
       ```
 
+## A Note On Making Labs
+
+When creating SavyLabs to use this environment, the lab template must be provisioned with the below minimum configuration changes in order to make sure each replica created from the template will be able to make WinRM connections to the infrastructure VMs over HTTP using basic authentication:
+
+- Run WinRM quickconfig
+    ```PowerShell
+    winrm quickconfig -force
+    ```
+- Set TrustedHosts value
+    ```PowerShell
+    Set-Item WSMan:\localhost\Client\TrustedHosts -Value * -Force
+    ```
 
 ## References
 - [Preparing Image for Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image)
