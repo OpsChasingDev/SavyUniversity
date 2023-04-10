@@ -74,6 +74,21 @@ When creating SavyLabs to use this environment, the lab template must be provisi
     Set-Item WSMan:\localhost\Client\TrustedHosts -Value * -Force
     ```
 
+*Take note that the credentials provided for users to connect to their labs CAN be different from that of what the provisioned VMs are configured to use as defined in the .tfvars file.*
+
+## Example .tfvars File Syntax
+
+```Terraform
+location              = "East US"
+resource_group_name   = "Savy_University"
+vnet_address_space    = ["10.250.0.0/16"]
+subnet_address_prefix = ["10.250.1.0/24"]
+vm_username           = "user"
+vm_password           = "pass"
+existing_vnet_name    = "TestVnet"
+existing_subnet_name  = "TestSubnet"
+```
+
 ## References
 - [Preparing Image for Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image)
 - [Uploading Image to  Azure](https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sa-upload-generalized)
