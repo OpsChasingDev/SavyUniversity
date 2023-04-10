@@ -34,56 +34,10 @@ resource "azurerm_subnet_nat_gateway_association" "subnet_nat_gateway_associatio
   nat_gateway_id = azurerm_nat_gateway.nat_gateway.id
 }
 
-resource "azurerm_network_security_group" "network_security_group" {
-  name                = "sl-network-security-group"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-
-  security_rule {
-    name                       = "RDP"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "3389"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-  security_rule {
-    name                       = "WinRM"
-    priority                   = 105
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "5985"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-  security_rule {
-    name                       = "SSH"
-    priority                   = 110
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-}
-
 resource "azurerm_nat_gateway_public_ip_association" "public_ip_association" {
   nat_gateway_id       = azurerm_nat_gateway.nat_gateway.id
   public_ip_address_id = azurerm_public_ip.public_ip_gateway.id
   depends_on           = [azurerm_nat_gateway.nat_gateway]
-}
-
-resource "azurerm_subnet_network_security_group_association" "subnet_nsg_association" {
-  subnet_id                 = data.azurerm_subnet.subnet.id
-  network_security_group_id = azurerm_network_security_group.network_security_group.id
-  depends_on                = [azurerm_network_security_group.network_security_group]
 }
 
 resource "azurerm_network_interface" "nic" {
