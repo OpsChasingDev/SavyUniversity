@@ -13,6 +13,7 @@ Sections described in this readme detail what is necessary in order to provision
    - SSH - From any port range to destination port 22
    - WinRM - From any port range to destination port 5985
 4. Lab Plan - Create a Lab Plan and delegate the subnet created in step 2 to this lab plan.
+   - For understanding the base requirements on the lab template to enable the lab VMs the ability to making WinRMs to infrastructure VMs with basic auth, see the section below called "A Note On Making Labs"
 5. Storage Account - Create a storage account with a container of access level "blob" which will store the custom VHD used by Terraform/Azure to create an image the provisioned VMs will be based off of.
    - For customizing the guest OS of the VHD to ensure the lab VMs will be able to connect over basic auth WinRM, see the section below titled "Configuring Ansible for WinRM on Windows Target Host"
    - For understanding how to prepare and upload the VHD Azure will use to create a VM image from, see the "Resources" section or specifically the links for [Preparing](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image) and [Uploading](https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sa-upload-generalized)
