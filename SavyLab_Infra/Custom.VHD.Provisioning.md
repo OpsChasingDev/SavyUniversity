@@ -2,6 +2,21 @@
 
 Sections described in this readme detail what is necessary in order to provision the "permanent" aspects of the integrated Azure Labs environment with code-defined VMs and infrastructure.  A portion of the infrastructure will be in place at all times as it will not incur costs and be more efficiently dealt with at a manual basis.  The rest of the infrastructure, including the VMs, public IPs, associations, custom image creation, and configuration of the VMs' guest operating system(s) will all be built with automation as these things will incur costs when spun up and also benefit from being able to have their setup replicated effortlessly.
 
+## Permanent Assets
+
+*These items will be manually created as they will be in place at all times and used by the automation.*
+
+1. Virtual Network - Create a virtual network in Azure with an address space of appropriate size (ideally more than one class C).
+2. Subnet - Create at least one subnet in Azure associated wiht the vnet created in the previous step.  The subnet here will need to be modified in the .tfvars file so the automation will be able to plug in the networking to the rest of the config.
+3. Network Security Group - Create an NSG with the below incoming rules and associate it with the subnet created in the previous step:
+   - RDP - From any port range to destination port 3389
+   - SSH - From any port range to destination port 22
+   - WinRM - From any port range to destination port 5985
+4. Lab Plan - Create a Lab Plan and delegate the subnet created in step 2 to this lab plan.
+5. Storage Account - Create a storage account with a container of access level "blob" which will store the custom VHD used by Terraform/Azure to create an image the provisioned VMs will be based off of.
+   - For customizing the guest OS of the VHD to ensure the lab VMs will be able to connect over basic auth WinRM, see the section below titled "Configuring Ansible for WinRM on Windows Target Host"
+   - For understanding how to prepare and upload the VHD Azure will use to create a VM image from, see the "Resources" section or specifically the links for [Preparing](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image) and [Uploading](https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sa-upload-generalized)
+
 ## Configuring Ansible for WinRM on Windows Target Host
 
 *The following describes the steps needed to set up a custom Windows VHD which both enables WinRM connectivity from public networks and is generatlized for use in Azure VM provisioning.*
