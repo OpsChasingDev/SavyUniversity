@@ -1,8 +1,10 @@
-# Preparing Custom VHD Image for Azure VM Provisioning
+# Setup Requirements for Integrated Azure Lab Environment
 
-*The following describes the steps needed to create a custom Windows image which both enables WinRM connectivity from public networks and is generatlized for use in Azure VM provisioning.*
+Sections described in this readme detail what is necessary in order to provision the "permanent" aspects of the integrated Azure Labs environment with code-defined VMs and infrastructure.  A portion of the infrastructure will be in place at all times as it will not incur costs and be more efficiently dealt with at a manual basis.  The rest of the infrastructure, including the VMs, public IPs, associations, custom image creation, and configuration of the VMs' guest operating system(s) will all be built with automation as these things will incur costs when spun up and also benefit from being able to have their setup replicated effortlessly.
 
 ## Configuring Ansible for WinRM on Windows Target Host
+
+*The following describes the steps needed to set up a custom Windows VHD which both enables WinRM connectivity from public networks and is generatlized for use in Azure VM provisioning.*
 
 1. Create Hyper-V VM using Generation 1 and a single, fixed disk
 2. Configure guest OS appropriately for allowing public connectivity for automated configuration tools
