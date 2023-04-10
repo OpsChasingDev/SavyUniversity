@@ -52,8 +52,8 @@ Sections described in this readme detail what is necessary in order to provision
    8. Ansible will now be able to run plays on the target windows host with the below config set in the inventory file:
       ```Bash
       [all:vars]
-      ansible_user="username"
-      ansible_password="password"
+      ansible_user="user"
+      ansible_password="pass"
       ansible_port=5985
       ansible_connection=winrm
       ansible_winrm_scheme=http
@@ -77,6 +77,8 @@ When creating SavyLabs to use this environment, the lab template must be provisi
 *Take note that the credentials provided for users to connect to their labs CAN be different from that of what the provisioned VMs are configured to use as defined in the .tfvars file.*
 
 ## Example .tfvars File Syntax
+
+*IMPORTANT: The credentials defined in the .tfvars file to provision the VM must be identical to those used by Ansible for authenticating to the newly provisioned VM.*
 
 ```Terraform
 location              = "East US"
