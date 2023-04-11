@@ -1,5 +1,5 @@
 [all]
-40.76.208.160
+40.121.65.2
 
 [all:vars]
 ansible_user=savy
