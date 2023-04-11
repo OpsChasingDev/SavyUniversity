@@ -12,18 +12,25 @@
       win_domain:
         dns_domain_name: savylabs.net
         safe_mode_password: Savy@123
+      register: ad
 
-    # - name: Promote server to domain controller
-    #   win_domain_controller:
-    #     state: domain_controller
-    #     dns_domain_name: savylabs.net
-    #     safe_mode_password: "P@ssw0rd1234"
-    #     domain_admin_user: savy@savylabs.net
-    #     domain_admin_password: Savy@123
-    #     database_path: "C:\\Windows\\NTDS"
-    #     domain_log_path: "C:\\Windows\\NTDS"
-    #     sysvol_path: "C:\\Windows\\SYSVOL"
-    #     install_dns: yes
+    - name: Reboot after domain creation
+      win_reboot:
+        msg: "Rebooting for AD install..."
+        pre_reboot_delay: 5
+      when: ad.changed
+
+    - name: Promote server to domain controller
+      win_domain_controller:
+        state: domain_controller
+        dns_domain_name: savylabs.net
+        safe_mode_password: Savy@123
+        domain_admin_user: sl-vm\\savy
+        domain_admin_password: Savy@123
+        database_path: "C:\\Windows\\NTDS"
+        domain_log_path: "C:\\Windows\\NTDS"
+        sysvol_path: "C:\\Windows\\SYSVOL"
+        install_dns: yes
 
 # - name: Create OUs for Company
 #   hosts: windows_server
