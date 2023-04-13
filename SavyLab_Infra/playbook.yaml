@@ -11,26 +11,9 @@
         state: present
 
     - name: Create domain
-      ansible.windows.win_domain:
+      microsoft.ad.domain:
         dns_domain_name: savylabs.net
         install_dns: true
         create_dns_delegation: false
         safe_mode_password: Savy@123
-      register: ad
-
-    - name: Reboot after domain creation
-      ansible.windows.win_reboot:
-        msg: "Rebooting for AD install..."
-        pre_reboot_delay: 5
-      when: ad.changed
-
-- name: Create OUs for Company
-  hosts: all
-  gather_facts: false
-
-  tasks:
-    - name: Create Company OU
-      community.windows.win_domain_ou:
-        name: SavyLabs
-        path: "DC=savylabs,DC=net"
-        state: present
+        reboot: true

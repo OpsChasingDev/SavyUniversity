@@ -21,3 +21,17 @@ resource "null_resource" "ansible" {
     command = "ansible-playbook -i hosts playbook.yaml"
   }
 }
+
+resource "time_sleep" "domain_creation_delay" {
+  depends_on = [null_resource.ansible]
+
+  create_duration = "30s"
+}
+
+resource "null_resource" "ansible_organization" {
+  depends_on = [time_sleep.domain_creation_delay]
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -i hosts organization.yaml"
+  }
+}
