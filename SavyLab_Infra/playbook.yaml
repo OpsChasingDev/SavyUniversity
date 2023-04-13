@@ -4,61 +4,33 @@
 
   tasks:
     - name: Install Active Directory Domain Services role
-      win_feature:
+      ansible.windows.win_feature:
         name: AD-Domain-Services
+        include_management_tools: true
+        include_sub_features: true
         state: present
 
     - name: Create domain
-      win_domain:
+      ansible.windows.win_domain:
         dns_domain_name: savylabs.net
+        install_dns: true
+        create_dns_delegation: false
         safe_mode_password: Savy@123
       register: ad
 
     - name: Reboot after domain creation
-      win_reboot:
+      ansible.windows.win_reboot:
         msg: "Rebooting for AD install..."
         pre_reboot_delay: 5
       when: ad.changed
 
-    - name: Promote server to domain controller
-      win_domain_controller:
-        state: domain_controller
-        dns_domain_name: savylabs.net
-        safe_mode_password: Savy@123
-        domain_admin_user: sl-vm\\savy
-        domain_admin_password: Savy@123
-        database_path: "C:\\Windows\\NTDS"
-        domain_log_path: "C:\\Windows\\NTDS"
-        sysvol_path: "C:\\Windows\\SYSVOL"
-        install_dns: yes
+- name: Create OUs for Company
+  hosts: all
+  gather_facts: false
 
-# - name: Create OUs for Company
-#   hosts: windows_server
-
-#   tasks:
-#     - name: Create Company OU
-#       win_domain:
-#         name: "OU=Company,DC=savylabs,DC=net"
-#         scope: subtree
-#         ou_type: ou
-
-#     - name: Create Users OU
-#       win_domain:
-#         name: "OU=Users,OU=Company,DC=savylabs,DC=net"
-#         scope: subtree
-#         ou_type: ou
-
-# - name: Create user accounts from CSV file
-#   hosts: windows_server
-
-#   tasks:
-#     - name: Create user accounts
-#       win_user:
-#         name: "{{ item.first_name }}.{{ item.last_name }}"
-#         password: "P@ssw0rd1234"
-#         state: present
-#         groups: "Users"
-#         ou: "OU=Users,OU=Company,DC=savylabs,DC=net"
-#       loop: "{{ lookup('csvfile', 'users.csv', delimiter=',', skip_lines=1) }}"
-#       vars:
-#         delimiter: ","
+  tasks:
+    - name: Create Company OU
+      community.windows.win_domain_ou:
+        name: SavyLabs
+        path: "DC=savylabs,DC=net"
+        state: present
