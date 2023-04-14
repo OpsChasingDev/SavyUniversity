@@ -177,6 +177,9 @@
         enabled: true
         state: present
         path: "OU=Users,OU=SavyLabs,DC=savylabs,DC=net"
+        attributes:
+          Company: "{{ user.universe }}"
+          Department: "{{ user.side }}"
         domain_username: savylabs\savy
         domain_password: Savy@123
         domain_server: sl-vm.savylabs.net
