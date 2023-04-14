@@ -169,6 +169,7 @@
         name: "{{ user.first_name }}"
         surname: "{{ user.last_name }}"
         sam_account_name: "{{ user.first_name }}.{{ user.last_name }}"
+        identity: "{{ user.first_name }}.{{ user.last_name }}"
         display_name: "{{ user.first_name }}.{{ user.last_name }}"
         upn: "{{ user.first_name }}.{{ user.last_name }}@savylabs.net"
         password: Password123
