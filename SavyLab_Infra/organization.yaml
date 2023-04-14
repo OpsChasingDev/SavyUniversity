@@ -111,3 +111,27 @@
         domain_server: sl-vm.savylabs.net
         organizational_unit: "OU=Groups,OU=SavyLabs,DC=savylabs,DC=net"
         state: present
+
+    - name: Create Marvel Comics Group
+      community.windows.win_domain_group:
+        name: Marvel Comics
+        display_name: Marvel Comics
+        scope: global
+        category: security
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        organizational_unit: "OU=Groups,OU=SavyLabs,DC=savylabs,DC=net"
+        state: present
+
+    - name: Create DC Comics Group
+      community.windows.win_domain_group:
+        name: DC Comics
+        display_name: DC Comics
+        scope: global
+        category: security
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        organizational_unit: "OU=Groups,OU=SavyLabs,DC=savylabs,DC=net"
+        state: present
