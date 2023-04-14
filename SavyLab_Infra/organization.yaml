@@ -158,7 +158,7 @@
     # debug to verify looping
     - name: Loop data
       ansible.builtin.debug:
-        msg: 'First: {{ user.first_name}} and Last: {{ user.last_name }}'
+        msg: 'First: {{ user.first_name}}, Last: {{ user.last_name }}, Universe: {{ user.universe }}, Side: {{ user.side }}'
       loop: "{{ csv_results.list }}"
       loop_control:
         loop_var: user
