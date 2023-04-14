@@ -11,6 +11,7 @@
         start_mode: auto
         state: started
 
+    # Level 1 - parent container
     - name: Create Company OU
       community.windows.win_domain_ou:
         name: SavyLabs
@@ -18,4 +19,54 @@
         domain_password: Savy@123
         domain_server: sl-vm.savylabs.net
         path: "DC=savylabs,DC=net"
+        state: present
+
+    # Level 2 - Computers
+    - name: Create Computers OU
+      community.windows.win_domain_ou:
+        name: Computers
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        path: "OU=SavyLabs,DC=savylabs,DC=net"
+        state: present
+
+    # Level 2 - Users
+    - name: Create Users OU
+      community.windows.win_domain_ou:
+        name: Users
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        path: "OU=SavyLabs,DC=savylabs,DC=net"
+        state: present
+
+    # Level 3 - Laptops
+    - name: Create Laptops OU
+      community.windows.win_domain_ou:
+        name: Laptops
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        path: "OU=Computers,OU=SavyLabs,DC=savylabs,DC=net"
+        state: present
+
+    # Level 3 - Desktops
+    - name: Create Desktops OU
+      community.windows.win_domain_ou:
+        name: Desktops
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        path: "OU=Computers,OU=SavyLabs,DC=savylabs,DC=net"
+        state: present
+
+    # Level 3 - VDI
+    - name: Create VDI OU
+      community.windows.win_domain_ou:
+        name: VDI
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        path: "OU=Computers,OU=SavyLabs,DC=savylabs,DC=net"
         state: present
