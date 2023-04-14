@@ -1,10 +1,11 @@
 ---
-# add in step to make sure Active Directory Web Services (ADWS) is running
+# OU Structure
 - name: Create ActiveDirectory OU Structure
   hosts: all
   gather_facts: false
 
   tasks:
+    # service check
     - name: Set service startup mode to auto and ensure it is started
       ansible.windows.win_service:
         name: ADWS
@@ -79,4 +80,34 @@
         domain_password: Savy@123
         domain_server: sl-vm.savylabs.net
         path: "OU=Computers,OU=SavyLabs,DC=savylabs,DC=net"
+        state: present
+
+# Groups
+- name: Create Groups
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Create Heroes Group
+      community.windows.win_domain_group:
+        name: Heroes
+        display_name: Heroes
+        scope: global
+        category: security
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        organizational_unit: "OU=Groups,OU=SavyLabs,DC=savylabs,DC=net"
+        state: present
+
+    - name: Create Villains Group
+      community.windows.win_domain_group:
+        name: Villains
+        display_name: Villains
+        scope: global
+        category: security
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        organizational_unit: "OU=Groups,OU=SavyLabs,DC=savylabs,DC=net"
         state: present
