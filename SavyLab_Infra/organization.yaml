@@ -166,7 +166,8 @@
     # create users from csv data
     - name: Create User Accounts
       community.windows.win_domain_user:
-        name: "{{ user.first_name }}"
+        name: "{{ user.first_name }}.{{ user.last_name }}"
+        firstname: "{{ user.first_name }}"
         surname: "{{ user.last_name }}"
         sam_account_name: "{{ user.first_name }}.{{ user.last_name }}"
         identity: "{{ user.first_name }}.{{ user.last_name }}"
