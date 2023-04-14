@@ -41,6 +41,16 @@
         path: "OU=SavyLabs,DC=savylabs,DC=net"
         state: present
 
+    # Level 2 - Groups
+    - name: Create Groups OU
+      community.windows.win_domain_ou:
+        name: Groups
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+        path: "OU=SavyLabs,DC=savylabs,DC=net"
+        state: present
+
     # Level 3 - Laptops
     - name: Create Laptops OU
       community.windows.win_domain_ou:
