@@ -135,3 +135,51 @@
         domain_server: sl-vm.savylabs.net
         organizational_unit: "OU=Groups,OU=SavyLabs,DC=savylabs,DC=net"
         state: present
+
+# Users
+- name: Create User Accounts from CSV
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    # read csv file users.csv
+    - name: Read CSV file
+      community.general.read_csv:
+        path: users.csv
+      delegate_to: localhost
+      register: csv_results
+
+    # debug to verify CSV data
+    - name: Debug CSV data
+      ansible.builtin.debug:
+        msg: "{{ csv_results.list }}"
+        # msg: 'First: {{ csv_results.list.1.first_name}} and Last: {{ csv_results.list.1.last_name }}'
+
+    # debug to verify looping
+    - name: Loop data
+      ansible.builtin.debug:
+        msg: 'First: {{ user.first_name}} and Last: {{ user.last_name }}'
+      loop: "{{ csv_results.list }}"
+      loop_control:
+        loop_var: user
+
+    # create users from csv data
+    - name: Create User Accounts
+      community.windows.win_domain_user:
+        name: "{{ user.first_name }}"
+        surname: "{{ user.last_name }}"
+        sam_account_name: "{{ user.first_name }}.{{ user.last_name }}"
+        display_name: "{{ user.first_name }}.{{ user.last_name }}"
+        upn: "{{ user.first_name }}.{{ user.last_name }}@savylabs.net"
+        password: Password123
+        password_never_expires: true
+        user_cannot_change_password: true
+        enabled: true
+        state: present
+        path: "OU=Users,OU=SavyLabs,DC=savylabs,DC=net"
+        domain_username: savylabs\savy
+        domain_password: Savy@123
+        domain_server: sl-vm.savylabs.net
+      loop: "{{ csv_results.list }}"
+      loop_control:
+        loop_var: user
