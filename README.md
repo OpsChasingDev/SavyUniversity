@@ -7,14 +7,6 @@ Current endeavor involves continuously maturing the ability to create re-usable 
 
 None of the information here will violate the privacy or jeopardize the security of Savant CTS or its employees.
 
-Next objectives:
-
-- Resiliency and testing
-  - test using resource group names with special characters
-  - test the limitation of VM creation quantity
-- consolidate functions in the constructor script
-- add functionality to remove/add/replace VMs on demand
-
 ## SavyLab Infrastructure
 
 Infra can be created by running the below inside the "SavyLab_Infra" folder:
