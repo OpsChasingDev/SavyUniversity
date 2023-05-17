@@ -71,8 +71,9 @@
 ## <img src="https://raw.githubusercontent.com/drummermanrob20/Misc/main/resources/shell.prompt.icon2.png" width="25"/> What’s Next? (1 hour) 
 
 - Demonstrating other components of PowerShell’s capabilities 
-  - Making web calls to APIs to show how, given the capability is available, PowerShell can work with all kinds of information systems. 
+  - Making web calls to APIs to show how, given the capability is available, PowerShell can work with all kinds of information systems. We also introduce newly adapter AI tools to help development.
   - Working with providers to do things like parse xml files 
 - Concepts involved 
   - Using “Invoke-RestMethod” on open-source REST API demos 
-  - Showing API calls to our ticketing system using authenticated web calls 
+  - Showing API calls to our ticketing system using authenticated web calls
+  - Using AI and machine learning tools to save time
