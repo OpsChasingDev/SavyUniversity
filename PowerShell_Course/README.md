@@ -53,7 +53,7 @@
 
 ## <img src="https://raw.githubusercontent.com/drummermanrob20/Misc/main/resources/shell.prompt.icon2.png" width="25"/> Create Microsoft 365 User (2 hours) 
 
-- [reference script](https://github.com/OpsChasingDev/Microsoft365/blob/main/Create.User.ps1)
+- Reference script [here](https://github.com/OpsChasingDev/Microsoft365/blob/main/Create.User.ps1)
 - Explore what it takes to create a user account in Microsoft 365. 
 - Concepts involved 
   - Module discovery and installation 
