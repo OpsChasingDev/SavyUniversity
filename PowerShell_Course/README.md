@@ -25,7 +25,7 @@
   - Why we need to care about where and how we develop 
   - Setting up VS Code 
   - Exploring common shortcuts 
-  - Installing plugins/extensions 
+  - Installing plugins/extensions (PowerShell Extension Pack by Justin Grote)
 - Git
   - Why we need to care about version control 
   - How does version control work? 
