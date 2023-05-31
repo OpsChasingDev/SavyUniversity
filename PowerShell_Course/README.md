@@ -3,7 +3,7 @@
 *This document contains information about each of the PowerShell course sections including the goal of each project, an estimated time frame, and a non-exhaustive list of the concepts involved while making them.*
 
 ![PowerShell Icon](https://raw.githubusercontent.com/drummermanrob20/Misc/main/resources/PowerShell_Core_6.0_icon.png)
-## <img src="https://raw.githubusercontent.com/drummermanrob20/Misc/main/resources/shell.prompt.icon2.png" width="25"/> Starting Automatic Services (3 hours)
+## <img src="https://raw.githubusercontent.com/drummermanrob20/Misc/main/resources/shell.prompt.icon2.png" width="25"/> Starting Automatic Services (5 hours)
 
 - Explore the shell by discovering what is necessary to find all services with an automatic startup type and get them started 
 - Use PowerShell ISE to translate the interactive command into a basic script that can be run which also outputs the services that were started 
