@@ -67,7 +67,7 @@
   - Making web calls to APIs to show how, given the capability is available, PowerShell can work with all kinds of information systems
   - Working with providers to do things like parse xml files 
   - Introducing the use of AI and machine learning tools
-- Concepts involved 
+  - Concepts involved 
   - Using “Invoke-RestMethod” on open-source REST API demos 
   - Showing API calls to our ticketing system using authenticated web calls
   - Using AI and machine learning tools properly to save time
