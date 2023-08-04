@@ -61,7 +61,7 @@
   - Simple example of how parameters work
   - Parameterizing our script to restrict and control user input
 
-## <img src="https://raw.githubusercontent.com/drummermanrob20/Misc/main/resources/shell.prompt.icon2.png" width="25"/> What’s Next? (2 hour) 
+## <img src="https://raw.githubusercontent.com/drummermanrob20/Misc/main/resources/shell.prompt.icon2.png" width="25"/> What’s Next? (2 houra) 
 
 - Demonstrating other components of PowerShell’s capabilities 
   - Making web calls to APIs to show how, given the capability is available, PowerShell can work with all kinds of information systems
