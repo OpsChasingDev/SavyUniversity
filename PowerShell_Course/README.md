@@ -43,7 +43,7 @@
 - Learn how to extrapolate various data points from multiple sources on multiple systems, combine them into desired, digestible data, and present them in a format that can be handed off.  Information gathered will include the server's name, operating system version, number of logical drives, and free on the system drive measured in gigabytes.  We will also include a piece of information chosen by the participants. 
 - Concepts involved 
   - Custom object creation
-  - Hash tables
+  - Hash tables and splatting
   - Gathering basic AD information
   - Custom object properties
   - PowerShell remoting
